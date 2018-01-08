@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import "./styles/App.css";
-import "./styles/custom.css";
 import Navbar from "./components/navbar";
 import Home from "./components/home";
 import Footer from "./components/footer";
+import "./styles/App.css";
+import "./styles/custom.css";
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="wrapper">
         <section className="sl_hero">
           <Navbar />
           <Home />

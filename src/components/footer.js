@@ -4,7 +4,7 @@ class Footer extends Component {
 	render() {
 		return (
 			<div className="container-fluid">
-				<div className="col-sm-9">&copy 2017 ShoppingList</div>
+				<div className="col-sm-9">&copy; 2017 ShoppingList</div>
 				<div className="col-sm-3">
 					Made with{" "}
 					<span

@@ -6,9 +6,9 @@ class Home extends Component {
     return (
       <div className="container-fluid sl_hero_content">
         <div className="row">
-          <div className="col-lg-9 col-md-12 col-sm-12 col-xs-12 sl_hero_text">
+          <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12 sl_hero_text">
             <h1>Keep track of your shopping</h1>
-            <a href="/join" className="btn btn-primary btn-large">
+            <a href="/join" className=  "btn btn-primary btn-large">
               Join
               <span
                 className="glyphicon glyphicon-menu-right"
@@ -16,7 +16,7 @@ class Home extends Component {
               />
             </a>
           </div>
-          <div className="col-lg-3 col-md-12 col-sm-12 col-xs-12 sl_hero_form">
+          <div className="col-lg-4 col-md-12 col-sm-12 col-xs-12 sl_hero_form">
             <div className="panel panel-default">
               <div className="panel-heading">
                 <strong className="">Create a ShoppingList account</strong>
