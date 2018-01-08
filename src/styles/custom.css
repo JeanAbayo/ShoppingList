@@ -1,6 +1,6 @@
 section.sl_hero {
 	width: 100%;
-	min-height: 96.2vh;
+	min-height: 93vh;
 	background: url("../images/sl_bg.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
@@ -24,7 +24,7 @@ section.sl_hero .sl_hero_content a.btn {
 	background-color: rgba(205, 99, 0, 0.9);
 	border: 0;
 	font-size: 120%;
-	width: 15%;
+	padding: 0.3em 1.2em;
 }
 section.sl_hero .sl_hero_content a.btn:hover {
 	background-color: rgba(205, 99, 0, 1);
@@ -32,6 +32,7 @@ section.sl_hero .sl_hero_content a.btn:hover {
 
 .sl_header.navbar-light {
 	background-color: rgba(255, 255, 255, 0.4) !important;
+	padding: unset;
 }
 .sl_header .navbar-header {
 	width: 20%;
@@ -40,6 +41,9 @@ section.sl_hero .sl_hero_content a.btn:hover {
 .sl_header .navbar-nav > li > a {
 	color: #555;
 	font-size: 110%;
+}
+.sl_header .navbar-nav {
+	padding: 0 2em;
 }
 .sl_header .navbar-header .navbar-brand {
 	padding: 0 10px;
@@ -52,12 +56,18 @@ section.sl_hero .sl_hero_content a.btn:hover {
 	margin-right: 0.5em;
 }
 .sl_header .sl_collapse li {
-	height: 55px;
+	padding: 0.5em 2em;
+	background: #ffffff64;
+	margin-left: 1px;
 }
-.sl_header .sl_collapse li:hover {
-	border-bottom: 2.5px solid #cd6300;
+.sl_header .sl_collapse li:hover,
+.sl_header .sl_collapse li:active {
+	box-shadow: 0px 2.5px #cd6300;
 	transition: 0.1s;
-	background: rgba(0, 0, 0, 0.04);
+	background: rgba(255, 255, 255, 0.74);
+}
+.sl_header.navbar-light .navbar-nav .nav-link {
+	color: #000 !important;
 }
 .sl_hero_form .panel {
 	background-color: rgba(0, 0, 0, 0.7);
@@ -122,5 +132,40 @@ section.sl_hero .sl_hero_content a.btn:hover {
 	.navbar-light .navbar-toggle {
 		position: absolute;
 		right: 0;
+	}
+}
+/* Customize hamburger icon */
+.custom-toggler.navbar-toggler {
+	border-color: #000;
+	background: #cc6b22;
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+.custom-toggler.navbar-toggler:focus {
+	outline: 0;
+}
+.custom-toggler .navbar-toggler-icon {
+	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(0, 0, 0, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+@media (max-width: 990px) {
+	.sl_header .navbar-nav {
+		padding: unset;
+	}
+	.sl_header .sl_collapse li {
+		padding: 0.5em 2em;
+		background: #0000008a;
+		margin-top: 2px;
+		margin-left: unset;
+		text-align: center;
+	}
+	.sl_header.navbar-light .navbar-nav .nav-link {
+		color: #fff !important;
+	}
+	.sl_header .sl_collapse li:hover,
+	.sl_header .sl_collapse li:active {
+		box-shadow: 0px 2px #cd6300;
+		transition: 0.1s;
+		background: rgba(0, 0, 0, 0.74);
 	}
 }
