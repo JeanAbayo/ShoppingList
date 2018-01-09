@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-// import components
-import SignupForm from "./helpers/signupForm";
 
-class Home extends Component {
+class Explore extends Component {
   render() {
     return (
       <div className="container-fluid sl_hero_content">
@@ -21,8 +19,7 @@ class Home extends Component {
             <div className="panel panel-default">
               <div className="panel-heading">
                 <strong className="">Create a ShoppingList account</strong>
-              </div>
-              <SignupForm />
+              </div>Explore Stuff
               <div className="panel-footer">
                 Alredy have an account?{" "}
                 <a href="login.html" className="">
@@ -37,4 +34,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Explore;
