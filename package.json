@@ -8,11 +8,15 @@
     "jquery": "^3.2.1",
     "popper.js": "^1.12.9",
     "react": "^16.1.1",
+    "react-bs-notifier": "^4.4.5",
     "react-dom": "^16.1.1",
     "react-ionicons": "^2.1.6",
     "react-meta-tags": "^0.3.0",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
     "styled-components": "^2.4.0"
   },
   "scripts": {
@@ -20,5 +24,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-extension": "^2.13.2"
   }
 }

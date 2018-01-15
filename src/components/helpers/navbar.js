@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import shoppinglistlogo from "../../images/sl_logo.png";
 import Menu from "./menu";
 
@@ -7,9 +8,9 @@ class Navbar extends Component {
 		return (
 			<nav className="navbar navbar-expand-lg navbar-light bg-light sl_header">
 				<div className="navbar-header">
-					<a className="navbar-brand" href="/">
+					<Link className="navbar-brand" to="/">
 						<img src={shoppinglistlogo} alt="Shopping List Logo" />
-					</a>
+					</Link>
 					<button
 						className="navbar-toggler custom-toggler"
 						type="button"

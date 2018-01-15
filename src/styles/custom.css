@@ -1,6 +1,6 @@
 section.sl_hero {
 	width: 100%;
-	min-height: 93vh;
+	min-height: 96vh;
 	background: url("../images/sl_bg.jpg");
 	background-repeat: no-repeat;
 	background-position: center;
@@ -93,7 +93,6 @@ section.sl_hero .sl_hero_content a.btn:hover {
 	box-shadow: none;
 	background-color: transparent;
 	color: #fff;
-	border-left: 1px solid;
 }
 .sl_hero_form .panel .btn {
 	width: 100%;
@@ -168,4 +167,8 @@ section.sl_hero .sl_hero_content a.btn:hover {
 		transition: 0.1s;
 		background: rgba(0, 0, 0, 0.74);
 	}
+}
+/* Change Ionicons SVGs*/
+.navbar .sc-bdVaJa {
+	height: 35px !important;
 }

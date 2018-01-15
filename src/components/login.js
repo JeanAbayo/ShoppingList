@@ -1,22 +1,14 @@
 import React, { Component } from "react";
 // import components
 import LoginForm from "./helpers/loginForm";
+import HomeSidebar from "./helpers/homeSidebar";
 
 class Login extends Component {
   render() {
     return (
       <div className="container-fluid sl_hero_content">
         <div className="row">
-          <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12 sl_hero_text">
-            <h1>Keep track of your shopping</h1>
-            <a href="/join" className="btn btn-primary btn-large">
-              Join
-              <span
-                className="glyphicon glyphicon-menu-right"
-                aria-hidden="true"
-              />
-            </a>
-          </div>
+          <HomeSidebar />
           <div className="col-lg-4 col-md-12 col-sm-12 col-xs-12 sl_hero_form">
             <div className="panel panel-default">
               <div className="panel-heading">
