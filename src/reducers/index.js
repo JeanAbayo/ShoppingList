@@ -3,6 +3,6 @@ import RegisterReducer from "./registerReducer";
 import LoginReducer from "./loginReducer";
 
 export default combineReducers({
-	RegisterReducer,
-	LoginReducer
+	register: RegisterReducer,
+	login: LoginReducer
 });

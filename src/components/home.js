@@ -15,7 +15,7 @@ class Home extends Component {
               <div className="panel-heading">
                 <strong className="">Create a ShoppingList account</strong>
               </div>
-              <SignupForm />
+              <SignupForm history={this.props.history} />
               <div className="panel-footer">
                 Alredy have an account?{" "}
                 <Link to="/login" className="">

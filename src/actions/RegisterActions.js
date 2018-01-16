@@ -11,13 +11,17 @@ export function registering() {
 export function registerSucceeds(data) {
 	return {
 		type: REGISTER_SUCCEEDS,
-		data
+		payload: {
+			message: data
+		}
 	};
 }
 export function registerFails(data) {
 	return {
 		type: REGISTER_FAILS,
-		data
+		payload: {
+			message: data
+		}
 	};
 }
 

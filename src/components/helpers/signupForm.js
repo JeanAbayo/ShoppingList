@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { register } from "../../actions/RegisterActions";
 import * as Icon from "react-ionicons";
+
+import { register } from "../../actions/RegisterActions";
+
+// Import Error notifier
+import Notifier from "../../containers/notifier";
 
 class SignupForm extends Component {
   constructor(props) {
@@ -35,6 +39,9 @@ class SignupForm extends Component {
   render() {
     return (
       <div className="panel-body">
+        {this.props.error ? (
+          <Notifier message={this.props.payload.message} />
+        ) : null}
         <form className="form-horizontal" onSubmit={this.registerUser}>
           <div className="input-group">
             <span className="input-group-addon" aria-hidden="true" />
@@ -138,8 +145,10 @@ class SignupForm extends Component {
 }
 
 function mapStateToProps(state) {
+  const { error, payload } = state.register;
   return {
-    userData: state.newUser
+    error,
+    payload
   };
 }
 
