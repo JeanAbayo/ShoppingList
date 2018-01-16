@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { register } from "../../actions/RegisterActions";
 import * as Icon from "react-ionicons";
-// import { AlertList } from "react-bs-notifier";
 
 class SignupForm extends Component {
   constructor(props) {
@@ -15,44 +14,10 @@ class SignupForm extends Component {
         confirm_password: "",
         question: "",
         answer: ""
-      },
-      errors: {
-        usernameError: "",
-        emailError: "",
-        passwordError: "",
-        confirm_passwordError: "",
-        questionError: "",
-        answerError: "",
-        detailedErrors: ""
       }
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.validateInput = this.validateInput.bind(this);
   }
-  validateInput(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    if (value === "") {
-      this.setState({
-        errors: {
-          ...this.state.errors,
-          [name + "Error"]: name + " can not be empty"
-        }
-      });
-    } else {
-      if (value.length <= 6) {
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            answerError: "Should be more than six characters"
-          }
-        });
-      }
-    }
-    console.log(this.state);
-  }
-  // Will do front-end validations here
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
@@ -78,10 +43,11 @@ class SignupForm extends Component {
               className="form-control"
               placeholder="Username"
               type="text"
+              minLength="6"
               name="username"
               value={this.state.newUser.username}
               onChange={this.handleInputChange}
-              onBlur={this.validateInput}
+              required
             />
           </div>
           <div className="input-group">
@@ -92,9 +58,10 @@ class SignupForm extends Component {
               placeholder="Email"
               type="email"
               name="email"
+              minLength="6"
               value={this.state.newUser.email}
               onChange={this.handleInputChange}
-              onBlur={this.validateInput}
+              required
             />
           </div>
           <div className="input-group">
@@ -105,9 +72,10 @@ class SignupForm extends Component {
               placeholder="Password"
               type="password"
               name="password"
+              minLength="6"
               value={this.state.newUser.password}
               onChange={this.handleInputChange}
-              onBlur={this.validateInput}
+              required
             />
           </div>
           <div className="input-group">
@@ -118,9 +86,10 @@ class SignupForm extends Component {
               placeholder="Confirm Password"
               type="password"
               name="confirm_password"
+              minLength="6"
               value={this.state.newUser.confirm_password}
               onChange={this.handleInputChange}
-              onBlur={this.validateInput}
+              required
             />
           </div>
           <div className="input-group">
@@ -131,9 +100,10 @@ class SignupForm extends Component {
               placeholder="Security question"
               type="text"
               name="question"
+              minLength="6"
               value={this.state.newUser.question}
               onChange={this.handleInputChange}
-              onBlur={this.validateInput}
+              required
             />
           </div>
           <div className="input-group">
@@ -148,9 +118,10 @@ class SignupForm extends Component {
               placeholder="Security Answer"
               type="text"
               name="answer"
+              minLength="6"
               value={this.state.newUser.answer}
               onChange={this.handleInputChange}
-              onBlur={this.validateInput}
+              required
             />
           </div>
           <div className="form-group last">
