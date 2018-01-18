@@ -16,12 +16,12 @@ export default function registerReducer(state = initialState, action) {
     case REGISTERING:
       return {
         ...state,
-        payload: [],
         registering: true
       };
     case REGISTER_SUCCEEDS:
       return {
         ...state,
+        error: false,
         registered: true,
         registering: false,
         payload: action.payload

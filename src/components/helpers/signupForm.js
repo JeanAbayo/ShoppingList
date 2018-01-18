@@ -37,10 +37,21 @@ class SignupForm extends Component {
   };
 
   render() {
+    let notificationType = "";
+    if (this.props.error) {
+      notificationType = "danger";
+    } else if (this.props.registered) {
+      notificationType = "success";
+    } else {
+      notificationType = null;
+    }
     return (
       <div className="panel-body">
-        {this.props.error ? (
-          <Notifier message={this.props.payload.message} />
+        {this.props.payload ? (
+          <Notifier
+            message={this.props.payload.message}
+            type={notificationType}
+          />
         ) : null}
         <form className="form-horizontal" onSubmit={this.registerUser}>
           <div className="input-group">
@@ -145,10 +156,11 @@ class SignupForm extends Component {
 }
 
 function mapStateToProps(state) {
-  const { error, payload } = state.register;
+  const { error, payload, registered } = state.register;
   return {
     error,
-    payload
+    payload,
+    registered
   };
 }
 

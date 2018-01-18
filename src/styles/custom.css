@@ -69,6 +69,9 @@ section.sl_hero .sl_hero_content a.btn:hover {
 .sl_header.navbar-light .navbar-nav .nav-link {
 	color: #000 !important;
 }
+.sl_hero_form {
+	margin-top: 3em;
+}
 .sl_hero_form .panel {
 	background-color: rgba(0, 0, 0, 0.7);
 	color: #fff;
@@ -171,4 +174,32 @@ section.sl_hero .sl_hero_content a.btn:hover {
 /* Change Ionicons SVGs*/
 .navbar .sc-bdVaJa {
 	height: 35px !important;
+}
+/*Alerts styles*/
+.alert {
+	border: unset;
+}
+.top-right-0-10 {
+	top: 4em !important;
+	right: 1em !important;
+}
+.alert-danger,
+.alert-success {
+	color: #fff;
+}
+.alert-danger {
+	background-color: #d55f51cf;
+}
+.alert-success {
+	background-color: #357543eb;
+}
+button.close-0-32.close {
+	position: absolute;
+	top: 0;
+	right: 3px;
+}
+.close {
+	font-size: 1rem;
+	color: #fff;
+	text-shadow: unset;
 }

@@ -8,6 +8,7 @@ export function registering() {
 		type: REGISTERING
 	};
 }
+
 export function registerSucceeds(data) {
 	return {
 		type: REGISTER_SUCCEEDS,
@@ -16,6 +17,7 @@ export function registerSucceeds(data) {
 		}
 	};
 }
+
 export function registerFails(data) {
 	return {
 		type: REGISTER_FAILS,
