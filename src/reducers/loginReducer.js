@@ -1,33 +1,33 @@
-import { LOGGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS } from "../actions/constants";
+import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS } from "../actions/constants";
 
 const initialState = {
-  data: [],
   logging_in: false,
   logged_in: false,
-  error: false
+  error: false,
+  payload: []
 };
 
 export default function loginReducer(state = initialState, action) {
   switch (action.type) {
-    case LOGGING_IN:
+    case LOGING_IN:
       return {
         ...state,
-        data: [],
         logging_in: true
       };
     case LOGIN_SUCCEEDS:
       return {
         ...state,
+        error: false,
         logged_in: true,
         logging_in: false,
-        data: action.data
+        payload: action.payload
       };
     case LOGIN_FAILS:
       return {
         ...state,
         logging_in: false,
         error: true,
-        data: action.data
+        payload: action.payload
       };
     default:
       return state;

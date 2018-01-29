@@ -47,12 +47,17 @@ class SignupForm extends Component {
     }
     return (
       <div className="panel-body">
-        {this.props.payload ? (
+        {this.props.payload.message ? (
           <Notifier
             message={this.props.payload.message}
             type={notificationType}
           />
         ) : null}
+        <Notifier
+          message={this.props.payload.message}
+          type={notificationType}
+        />
+
         <form className="form-horizontal" onSubmit={this.registerUser}>
           <div className="input-group">
             <span className="input-group-addon" aria-hidden="true" />

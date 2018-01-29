@@ -203,3 +203,11 @@ button.close-0-32.close {
 	color: #fff;
 	text-shadow: unset;
 }
+
+.hide-notifier {
+	display: none;
+}
+
+.show-notifier {
+	display: block;
+}

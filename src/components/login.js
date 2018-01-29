@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+// import container
+import LoginContainer from "../containers/loginContainer";
 // import components
-import LoginForm from "./helpers/loginForm";
 import HomeSidebar from "./helpers/homeSidebar";
 
 class Login extends Component {
@@ -14,12 +16,12 @@ class Login extends Component {
               <div className="panel-heading">
                 <strong className="">Create a ShoppingList account</strong>
               </div>
-              <LoginForm />
+              <LoginContainer history={this.props.history} />
               <div className="panel-footer">
                 Alredy have an account?{" "}
-                <a href="login.html" className="">
+                <Link to="/signup" className="">
                   Signin here
-                </a>
+                </Link>
               </div>
             </div>
           </div>

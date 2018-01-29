@@ -5,10 +5,10 @@ import {
 } from "../actions/constants";
 
 const initialState = {
-  data: [],
   registering: false,
   registered: false,
-  error: false
+  error: false,
+  payload: []
 };
 
 export default function registerReducer(state = initialState, action) {
