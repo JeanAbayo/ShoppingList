@@ -8,5 +8,7 @@ export const LOGIN_FAILS = "LOGIN_FAILS";
 export const LOGIN_SUCCEEDS = "LOGIN_SUCCEEDS";
 // Notifier constants
 export const SUCCESS = "SUCCESS";
-export const DANGER = "DANGER";
+export const ERROR = "ERROR";
+export const INFO = "INFO";
+export const WARN = "WARN";
 export const CLEAR = "CLEAR";

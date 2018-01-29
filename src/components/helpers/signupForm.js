@@ -37,26 +37,11 @@ class SignupForm extends Component {
   };
 
   render() {
-    let notificationType = "";
-    if (this.props.error) {
-      notificationType = "danger";
-    } else if (this.props.registered) {
-      notificationType = "success";
-    } else {
-      notificationType = null;
-    }
     return (
       <div className="panel-body">
-        {this.props.payload.message ? (
-          <Notifier
-            message={this.props.payload.message}
-            type={notificationType}
-          />
+        {this.props.notify.type ? (
+          <Notifier message={this.props.notify} />
         ) : null}
-        <Notifier
-          message={this.props.payload.message}
-          type={notificationType}
-        />
 
         <form className="form-horizontal" onSubmit={this.registerUser}>
           <div className="input-group">
@@ -159,13 +144,14 @@ class SignupForm extends Component {
     );
   }
 }
-
 function mapStateToProps(state) {
   const { error, payload, registered } = state.register;
+  const { notify } = state;
   return {
     error,
     payload,
-    registered
+    registered,
+    notify
   };
 }
 

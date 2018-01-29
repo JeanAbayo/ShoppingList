@@ -1,4 +1,4 @@
-import { SUCCESS, DANGER, CLEAR } from "../actions/constants";
+import { SUCCESS, ERROR, CLEAR, INFO, WARN } from "../actions/constants";
 
 export default function loginReducer(state = {}, action) {
   switch (action.type) {
@@ -8,16 +8,27 @@ export default function loginReducer(state = {}, action) {
         type: SUCCESS,
         data: action.data
       };
-    case DANGER:
+    case ERROR:
       return {
         ...state,
-        type: DANGER,
+        type: ERROR,
+        data: action.data
+      };
+    case INFO:
+      return {
+        ...state,
+        type: INFO,
+        data: action.data
+      };
+    case WARN:
+      return {
+        ...state,
+        type: WARN,
         data: action.data
       };
     case CLEAR:
       return {
         ...state,
-        type: DANGER,
         data: ""
       };
     default:

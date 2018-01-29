@@ -3,7 +3,7 @@ import axios from "axios";
 import { url } from "../instance/config";
 import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS } from "./constants";
 
-import { danger, success } from "./NotifyActions";
+import { error as danger, success } from "./NotifyActions";
 
 export function logingIn() {
 	return {

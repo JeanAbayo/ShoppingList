@@ -1,21 +1,35 @@
-import { SUCCESS, DANGER, CLEAR } from "./constants";
+import { SUCCESS, ERROR, CLEAR, INFO, WARN } from "./constants";
 
-export function success(data) {
+export const success = data => {
 	return {
 		type: SUCCESS,
 		data
 	};
-}
+};
 
-export function danger(data) {
+export const error = data => {
 	return {
-		type: DANGER,
+		type: ERROR,
 		data
 	};
-}
+};
 
-export function clear() {
+export const info = data => {
+	return {
+		type: INFO,
+		data
+	};
+};
+
+export const warn = data => {
+	return {
+		type: WARN,
+		data
+	};
+};
+
+export const clear = () => {
 	return {
 		type: CLEAR
 	};
-}
+};

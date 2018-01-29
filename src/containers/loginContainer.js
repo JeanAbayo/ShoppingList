@@ -14,8 +14,7 @@ class LoginContainer extends Component {
       userData: {
         email: "",
         password: ""
-      },
-      notifyTrigger: false
+      }
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -30,9 +29,6 @@ class LoginContainer extends Component {
 
   authenticateUser = event => {
     event.preventDefault();
-    this.setState({
-      notifyTrigger: !this.state.notifyTrigger
-    });
     this.props.login(this.state.userData);
   };
 
