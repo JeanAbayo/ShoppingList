@@ -9,6 +9,7 @@ import configureStore from "./instance/configureStore";
 import Explore from "./components/explore";
 import Home from "./components/home";
 import Login from "./components/login";
+import Profile from "./components/profile";
 // import secondary components
 import Navbar from "./components/helpers/navbar";
 import Footer from "./components/helpers/footer";
@@ -27,6 +28,7 @@ class App extends Component {
               <Route path="/explore" component={Explore} />
               <Route path="/signup" component={Home} />
               <Route path="/login" component={Login} />
+              <Route path="/profile" component={Profile} />
             </section>
             <section className="sl_footer">
               <Footer />

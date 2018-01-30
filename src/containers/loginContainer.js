@@ -83,12 +83,12 @@ class LoginContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { error, payload, logged_in, logging_in } = state.login;
+  const { error, payload, isAuthenticated, logging_in } = state.login;
   const { notify } = state;
   return {
     error,
     payload,
-    logged_in,
+    isAuthenticated,
     logging_in,
     notify
   };

@@ -1,9 +1,9 @@
 import axios from "axios";
 
 import { url } from "../instance/config";
-import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS } from "./constants";
+import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS, LOGOUT } from "./constants";
 
-import { error as danger, success } from "./NotifyActions";
+import { error as danger, success, warning } from "./NotifyActions";
 
 export function logingIn() {
 	return {
@@ -21,6 +21,13 @@ export function loginSucceeds(payload) {
 export function loginFails(payload) {
 	return {
 		type: LOGIN_FAILS,
+		payload
+	};
+}
+
+export function logged_out(payload) {
+	return {
+		type: LOGOUT,
 		payload
 	};
 }
@@ -43,3 +50,33 @@ export function login(userData) {
 			});
 	};
 }
+
+axios.interceptors.request.use(
+	config => {
+		const token = localStorage.getItem("token");
+		if (token != null) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+		return config;
+	},
+	function(err) {
+		return Promise.reject(err);
+	}
+);
+
+export const logout = () => {
+	return dispatch => {
+		axios
+			.post(url + "auth/logout")
+			.then(response => {
+				localStorage.removeItem("token");
+				dispatch(warning(response.data));
+				return dispatch(logged_out(response.data));
+			})
+			.catch(error => {
+				if (error.response) {
+					dispatch(danger(error.response.data));
+				}
+			});
+	};
+};

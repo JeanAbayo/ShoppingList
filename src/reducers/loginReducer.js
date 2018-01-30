@@ -1,8 +1,12 @@
-import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS } from "../actions/constants";
+import {
+  LOGING_IN,
+  LOGIN_SUCCEEDS,
+  LOGIN_FAILS,
+  LOGOUT
+} from "../actions/constants";
 
 const initialState = {
   logging_in: false,
-  logged_in: false,
   error: false,
   payload: []
 };
@@ -18,7 +22,7 @@ export default function loginReducer(state = initialState, action) {
       return {
         ...state,
         error: false,
-        logged_in: true,
+        isAuthenticated: true,
         logging_in: false,
         payload: action.payload
       };
@@ -28,6 +32,11 @@ export default function loginReducer(state = initialState, action) {
         logging_in: false,
         error: true,
         payload: action.payload
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isAuthenticated: false
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { SUCCESS, ERROR, CLEAR, INFO, WARN } from "./constants";
+import { SUCCESS, ERROR, CLEAR, INFO, WARNING } from "./constants";
 
 export const success = data => {
 	return {
@@ -21,9 +21,9 @@ export const info = data => {
 	};
 };
 
-export const warn = data => {
+export const warning = data => {
 	return {
-		type: WARN,
+		type: WARNING,
 		data
 	};
 };
