@@ -31,6 +31,7 @@ export function login(userData) {
 		axios
 			.post(url + "auth/login", userData)
 			.then(response => {
+				localStorage.setItem("token", response.data.token);
 				dispatch(success(response.data));
 				return dispatch(loginSucceeds(response.data));
 			})

@@ -6,6 +6,7 @@ import { login } from "../actions/LoginActions";
 
 // Import Error notifier
 import Notifier from "./notifier";
+import Loader from "../components/loader";
 
 class LoginContainer extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class LoginContainer extends Component {
   render() {
     return (
       <div className="panel-body">
+        {this.props.logging_in ? <Loader /> : null}
         {this.props.notify.type ? (
           <Notifier message={this.props.notify} />
         ) : null}
@@ -81,12 +83,13 @@ class LoginContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { error, payload, logged_in } = state.login;
+  const { error, payload, logged_in, logging_in } = state.login;
   const { notify } = state;
   return {
     error,
     payload,
     logged_in,
+    logging_in,
     notify
   };
 }

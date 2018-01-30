@@ -12,9 +12,6 @@ import Login from "./components/login";
 // import secondary components
 import Navbar from "./components/helpers/navbar";
 import Footer from "./components/helpers/footer";
-// Import styles
-import "./styles/App.css";
-import "./styles/custom.css";
 
 const store = configureStore();
 

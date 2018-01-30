@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap.js";
 
 import "font-awesome/css/font-awesome.min.css";
 
-import "./styles/index.css";
+import "./styles/App.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 
