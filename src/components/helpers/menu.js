@@ -36,6 +36,13 @@ class Menu extends Component {
             </button>
           </li>
         ) : null}
+        {isAuthenticated ? (
+          <li className="nav-item">
+            <Link className="nav-link MenuButton" to="/profile">
+              Profile
+            </Link>
+          </li>
+        ) : null}
       </ul>
     );
   }

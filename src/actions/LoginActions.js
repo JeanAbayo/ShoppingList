@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { push } from "react-router-redux";
+
 import { url } from "../instance/config";
 import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS, LOGOUT } from "./constants";
 
@@ -40,6 +42,7 @@ export function login(userData) {
 			.then(response => {
 				localStorage.setItem("token", response.data.token);
 				dispatch(success(response.data));
+				dispatch(push("/profile"));
 				return dispatch(loginSucceeds(response.data));
 			})
 			.catch(error => {

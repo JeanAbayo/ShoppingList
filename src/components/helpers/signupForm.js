@@ -22,14 +22,15 @@ class SignupForm extends Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
-  handleInputChange(event) {
+
+  handleInputChange = event => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
     this.setState({
       newUser: { ...this.state.newUser, [name]: value }
     });
-  }
+  };
 
   registerUser = event => {
     event.preventDefault();

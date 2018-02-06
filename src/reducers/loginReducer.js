@@ -1,3 +1,4 @@
+import { initialState } from "./initialState";
 import {
   LOGING_IN,
   LOGIN_SUCCEEDS,
@@ -5,13 +6,7 @@ import {
   LOGOUT
 } from "../actions/constants";
 
-const initialState = {
-  logging_in: false,
-  error: false,
-  payload: []
-};
-
-export default function loginReducer(state = initialState, action) {
+export default function loginReducer(state = initialState.login, action) {
   switch (action.type) {
     case LOGING_IN:
       return {

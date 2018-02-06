@@ -1,17 +1,11 @@
+import { initialState } from "./initialState";
 import {
   REGISTERING,
   REGISTER_SUCCEEDS,
   REGISTER_FAILS
 } from "../actions/constants";
 
-const initialState = {
-  registering: false,
-  registered: false,
-  error: false,
-  payload: []
-};
-
-export default function registerReducer(state = initialState, action) {
+export default function registerReducer(state = initialState.register, action) {
   switch (action.type) {
     case REGISTERING:
       return {

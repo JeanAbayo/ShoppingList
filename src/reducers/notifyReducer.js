@@ -1,6 +1,7 @@
+import { initialState } from "./initialState";
 import { SUCCESS, ERROR, CLEAR, INFO, WARNING } from "../actions/constants";
 
-export default function loginReducer(state = {}, action) {
+export default function notifyReducer(state = initialState.notify, action) {
   switch (action.type) {
     case SUCCESS:
       return {
