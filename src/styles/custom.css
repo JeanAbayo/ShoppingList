@@ -206,3 +206,25 @@ button.close-0-32.close {
   position: fixed !important;
   top: 50% !important;
   left: 50% !important; }
+
+.sl_display_card {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: unset;
+  border-radius: unset;
+  margin: 2em 1em;
+  padding: 1em 3em; }
+
+.sl_display_card .list-group-item {
+  border-right: none;
+  border-left: none;
+  border-radius: unset !important; }
+
+.sl_display_card .sc-bdVaJa {
+  background-color: #000;
+  position: absolute;
+  right: 15px;
+  bottom: 5px;
+  cursor: pointer; }
+
+.sl_display_card > .row .col-4 {
+  text-align: right; }

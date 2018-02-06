@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 // For Routing
-import { Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import { Provider } from "react-redux";
-import { ConnectedRouter } from "react-router-redux";
+import { ConnectedRouter as Router } from "react-router-redux";
 import configureStore from "./instance/configureStore";
 import { PersistGate } from "redux-persist/es/integration/react";
 
@@ -29,25 +29,27 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate loading={<div />} persistor={persistor}>
-          <ConnectedRouter history={history}>
+          <Router history={history}>
             <div className="wrapper">
               <section className="sl_hero">
                 <Navbar />
-                <Route exact path="/" component={Home} />
-                <Route path="/explore" component={Explore} />
-                <Route path="/signup" component={Home} />
-                <Route path="/login" component={Login} />
-                <ProtectedRoute path="/profile" component={Profile} />
-                <ProtectedRoute
-                  path="/dashboard"
-                  component={DashboardContainer}
-                />
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="/explore" component={Explore} />
+                  <Route path="/signup" component={Home} />
+                  <Route path="/login" component={Login} />
+                  <ProtectedRoute path="/profile" component={Profile} />
+                  <ProtectedRoute
+                    path="/dashboard"
+                    component={DashboardContainer}
+                  />
+                </Switch>
               </section>
               <section className="sl_footer">
                 <Footer />
               </section>
             </div>
-          </ConnectedRouter>
+          </Router>
         </PersistGate>
       </Provider>
     );
