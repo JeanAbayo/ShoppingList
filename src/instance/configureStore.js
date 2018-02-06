@@ -1,36 +1,28 @@
-import reducers from "../reducers";
 import { createStore, applyMiddleware } from "redux";
-import createHistory from "history/createBrowserHistory";
-import thunk from "redux-thunk";
-import { routerMiddleware } from "react-router-redux";
-import { composeWithDevTools } from "redux-devtools-extension";
+import thunkMiddleware from "redux-thunk";
 import logger from "redux-logger";
+import { routerMiddleware } from "react-router-redux";
+import createHistory from "history/createBrowserHistory";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/es/storage"; // default: localStorage if web, AsyncStorage if react-native
+import reducers from "../reducers";
 
-import { loadState, saveState } from "./persistState";
+const history = createHistory();
+const historyRouterMiddleware = routerMiddleware(history);
 
-export const history = createHistory();
+const middleWares = [thunkMiddleware, historyRouterMiddleware, logger];
 
-const composeEnhancers = composeWithDevTools({});
-const persistedState = loadState;
-
-export const configureStore = () => {
-	const middleware = [
-		thunk /* ...your middleware (i.e. thunk) */,
-		routerMiddleware(history),
-		logger
-	];
-	const store = createStore(
-		reducers,
-		persistedState,
-		composeEnhancers(
-			applyMiddleware(...middleware)
-			// other store enhancers if any
-		)
-	);
-
-	store.subscribe(() => {
-		saveState(store.getState());
-	});
-
-	return store;
+const persistConfig = {
+	key: "root",
+	storage,
+	blacklist: ["routing"]
 };
+
+const persistReducers = persistReducer(persistConfig, reducers);
+
+export default function configureStore() {
+	let store = createStore(persistReducers, applyMiddleware(...middleWares));
+	let persistor = persistStore(store);
+
+	return { persistor, store };
+}

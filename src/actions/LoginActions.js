@@ -5,6 +5,8 @@ import { push } from "react-router-redux";
 import { url } from "../instance/config";
 import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS, LOGOUT } from "./constants";
 
+import Api from "./Api";
+
 import { error as danger, success, warning } from "./NotifyActions";
 
 export function logingIn() {
@@ -38,11 +40,11 @@ export function login(userData) {
 	return dispatch => {
 		dispatch(logingIn());
 		axios
-			.post(url + "auth/login", userData)
+			.post(url + "/auth/login", userData)
 			.then(response => {
 				localStorage.setItem("token", response.data.token);
 				dispatch(success(response.data));
-				dispatch(push("/profile"));
+				dispatch(push("/dashboard"));
 				return dispatch(loginSucceeds(response.data));
 			})
 			.catch(error => {
@@ -54,23 +56,10 @@ export function login(userData) {
 	};
 }
 
-axios.interceptors.request.use(
-	config => {
-		const token = localStorage.getItem("token");
-		if (token != null) {
-			config.headers.Authorization = `Bearer ${token}`;
-		}
-		return config;
-	},
-	function(err) {
-		return Promise.reject(err);
-	}
-);
-
 export const logout = () => {
 	return dispatch => {
-		axios
-			.post(url + "auth/logout")
+		Api.logout("auth/logout")
+			.Logout()
 			.then(response => {
 				localStorage.removeItem("token");
 				dispatch(warning(response.data));

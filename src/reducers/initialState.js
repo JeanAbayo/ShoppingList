@@ -11,5 +11,10 @@ export const initialState = {
 		payload: [],
 		isAuthenticated: false
 	},
-	notify: {}
+	notify: {},
+	shoppinglist: {
+		processing: false,
+		processed: false,
+		payload: []
+	}
 };
