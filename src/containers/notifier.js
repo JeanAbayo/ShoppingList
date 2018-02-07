@@ -5,7 +5,6 @@ class Notifier extends Component {
 	toastId = null;
 
 	componentDidUpdate() {
-		console.log(this.props.message);
 		if (this.props.message.data) {
 			if (!toast.isActive(this.toastId)) {
 				const errorType = this.props.message.type;

@@ -18,11 +18,11 @@ axios.interceptors.request.use(
 export default {
 	shoppinglists(url) {
 		return {
-			getOne: ({ id }) => axios.get(`${url}/${id}`),
-			getAll: () => axios.get(url),
-			update: toUpdate => axios.put(url, toUpdate),
+			getOne: ({ id }) => axios.get(`${base_url}/${url}/${id}`),
+			getAll: () => axios.get(`${base_url}/${url}`),
+			update: toUpdate => axios.put(`${base_url}/${url}`, toUpdate),
 			create: toCreate => axios.post(`${base_url}/${url}`, toCreate),
-			delete: ({ id }) => axios.delete(`${url}/${id}`)
+			delete: ({ id }) => axios.delete(`${base_url}/${url}/${id}`)
 		};
 	},
 	logout(url) {

@@ -1,7 +1,3 @@
-import axios from "axios";
-import { push } from "react-router-redux";
-
-import { url } from "../instance/config";
 import {
 	CREATE_SHOPPINGLIST,
 	FETCH_SHOPPINGLIST,
@@ -63,13 +59,22 @@ export const request_finished = type => {
 	};
 };
 
-export function getShoppinglists() {
+export function fetchShoppinglists() {
 	return dispatch => {
 		dispatch(request_loading("FETCH"));
 		Api.shoppinglists("shoppinglists")
 			.getAll()
-			.then(({ payload }) => console.log(payload))
-			.catch(({ err }) => console.log(err));
+			.then(response => {
+				dispatch(fetch_many_shoppinglists(response.data));
+				return dispatch(request_finished());
+			})
+			.catch(error => {
+				if (error.response) {
+					dispatch(danger(error.response.data));
+					dispatch(request_finished());
+					return dispatch(clear());
+				}
+			});
 	};
 }
 

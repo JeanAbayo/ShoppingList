@@ -7,9 +7,13 @@ import { SearchBox } from "../components/searchBox";
 import CreateShoppinglist from "./createShoppinglist";
 
 import { login } from "../actions/LoginActions";
-import { createShoppinglist } from "../actions/ShoppingListsActions";
+import {
+  createShoppinglist,
+  fetchShoppinglists
+} from "../actions/ShoppingListsActions";
 // Import Error notifier
 import Notifier from "./notifier";
+import Loader from "../components/loader";
 import * as Icon from "react-ionicons";
 
 class DashboardContainer extends Component {
@@ -29,6 +33,10 @@ class DashboardContainer extends Component {
     });
   }
 
+  componentDidMount() {
+    this.props.fetchShoppinglists();
+  }
+
   handleModalCloseClick() {
     this.setState({
       showModal: false
@@ -39,6 +47,7 @@ class DashboardContainer extends Component {
     const { showModal } = this.state;
     return (
       <div className="container-fluid">
+        {this.props.processing ? <Loader /> : null}
         {this.props.notify.type ? (
           <Notifier message={this.props.notify} />
         ) : null}
@@ -78,7 +87,7 @@ class DashboardContainer extends Component {
                 </div>
               </div>
               <div className="card-block">
-                <ShoppinglistBox />
+                <ShoppinglistBox shoppinglists={this.props.payload} />
               </div>
               <div className="row pagination_container">
                 <PaginationNav />
@@ -106,5 +115,7 @@ function mapStateToProps(state) {
 }
 
 export default withRouter(
-  connect(mapStateToProps, { login, createShoppinglist })(DashboardContainer)
+  connect(mapStateToProps, { login, createShoppinglist, fetchShoppinglists })(
+    DashboardContainer
+  )
 );

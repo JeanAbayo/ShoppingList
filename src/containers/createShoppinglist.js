@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import jquery from "jquery";
 
-// Import Error notifier
-import Notifier from "./notifier";
-
 import Loader from "../components/loader";
 import { createShoppinglist } from "../actions/ShoppingListsActions";
 

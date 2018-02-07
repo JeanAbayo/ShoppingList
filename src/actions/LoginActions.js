@@ -3,8 +3,6 @@ import axios from "axios";
 import { url } from "../instance/config";
 import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS, LOGOUT } from "./constants";
 
-import { push } from "react-router-redux";
-
 import Api from "./Api";
 
 import { error as danger, success, warning, clear } from "./NotifyActions";
