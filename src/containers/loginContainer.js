@@ -33,15 +33,10 @@ class LoginContainer extends Component {
     this.props.login(this.state.userData);
   };
 
-  changeContainer = () => {
-    console.log(this.refs);
-  };
-
   // After a succesful login, redirect to profile
   componentDidUpdate() {
     if (this.props.isAuthenticated) {
       this.props.history.push("/dashboard");
-      this.changeContainer();
     }
   }
 

@@ -21,17 +21,17 @@ export const ShoppinglistBox = () => (
         aria-label="Toolbar with button groups"
       >
         <div className="btn-group mr-3" role="group" aria-label="First group">
-          <button type="button" class="btn btn-primary">
+          <button type="button" className="btn btn-primary">
             <Icon icon="ios-clipboard-outline" fontSize="23px" color="#fff" />
           </button>
         </div>
         <div className="btn-group mr-3" role="group" aria-label="Second group">
-          <button type="button" class="btn btn-danger">
+          <button type="button" className="btn btn-danger">
             <Icon icon="ios-trash-outline" fontSize="23px" color="#fff" />
           </button>
         </div>
         <div className="btn-group" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-info">
+          <button type="button" className="btn btn-info">
             <Icon icon="ios-open-outline" fontSize="23px" color="#fff" />
           </button>
         </div>

@@ -281,3 +281,13 @@ button.close-0-32.close {
 .sl_display_card .btn-toolbar .sc-bdVaJa {
 	height: 100%;
 }
+.show_create_sl .modal-header button {
+	color: #000;
+}
+.show_create_sl .modal-body .form-control {
+	box-shadow: unset;
+}
+.show_create_sl .modal-body .form-control:focus {
+	background: unset;
+	box-shadow: unset;
+}
