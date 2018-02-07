@@ -229,13 +229,55 @@ button.close-0-32.close {
 	border-left: none;
 	border-radius: unset !important;
 }
-.sl_display_card .sc-bdVaJa {
-	background-color: #000;
+.sl_display_card > .row .col-4 .sc-bdVaJa {
+	background-color: #324951;
 	position: absolute;
 	right: 15px;
 	bottom: 5px;
 	cursor: pointer;
+	border-radius: 8px;
+}
+.sl_display_card .card-header {
+	border-bottom: none;
+	background-color: unset;
+}
+.sl_display_card > .row {
+	margin: unset;
 }
 .sl_display_card > .row .col-4 {
 	text-align: right;
+}
+.row.pagination_container {
+	margin: 0.5em 33%;
+}
+.sl_display_card .search_icon {
+	margin-right: 10em;
+}
+.sl_display_card .create_sl {
+	margin-right: 5em;
+}
+.sl_display_card .search_box {
+	margin-bottom: unset;
+	position: absolute;
+	right: 5em;
+	width: 100%;
+	bottom: 0.5em;
+	background: unset;
+}
+.sl_display_card h4 {
+	margin-left: 1em;
+	color: #324951;
+}
+.sl_display_card .search_box .form-control:focus {
+	border-color: #a95100;
+	box-shadow: unset;
+}
+.sl_display_card .btn-toolbar {
+	padding: 0 2em;
+}
+.sl_display_card .btn-toolbar button {
+	padding: 0 7px;
+}
+.sl_display_card .btn-toolbar .sc-bdVaJa {
+	height: 100%;
 }
