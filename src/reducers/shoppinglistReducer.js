@@ -6,10 +6,11 @@ import {
   FETCH_MANY_SHOPPINGLISTS,
   UPDATE_SHOPPINGLIST,
   DELETE_SHOPPINGLIST,
-  REQUEST_LOADING
+  REQUEST_LOADING,
+  REQUEST_FINISHED
 } from "../actions/constants";
 
-export default function registerReducer(
+export default function ShoppinglistReducer(
   state = initialState.shoppinglist,
   action
 ) {
@@ -19,39 +20,39 @@ export default function registerReducer(
         ...state,
         processing: true
       };
+    case REQUEST_FINISHED:
+      return {
+        ...state,
+        processing: false
+      };
     case CREATE_SHOPPINGLIST:
       return {
         ...state,
-        processing: false,
-        processed: true,
+        created: true,
         payload: action.payload
       };
     case FETCH_SHOPPINGLIST:
       return {
         ...state,
-        processing: false,
-        processed: true,
+        created: true,
         payload: action.payload
       };
     case FETCH_MANY_SHOPPINGLISTS:
       return {
         ...state,
-        processing: false,
-        processed: true,
+        created: true,
         payload: action.payload
       };
     case UPDATE_SHOPPINGLIST:
       return {
         ...state,
-        processing: false,
-        processed: true,
+        created: true,
         payload: action.payload
       };
     case DELETE_SHOPPINGLIST:
       return {
         ...state,
-        processing: false,
-        processed: true,
+        created: true,
         payload: action.payload
       };
 

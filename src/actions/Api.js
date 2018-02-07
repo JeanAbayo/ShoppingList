@@ -21,7 +21,7 @@ export default {
 			getOne: ({ id }) => axios.get(`${url}/${id}`),
 			getAll: () => axios.get(url),
 			update: toUpdate => axios.put(url, toUpdate),
-			create: toCreate => axios.put(url, toCreate),
+			create: toCreate => axios.post(`${base_url}/${url}`, toCreate),
 			delete: ({ id }) => axios.delete(`${url}/${id}`)
 		};
 	},

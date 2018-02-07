@@ -3,9 +3,11 @@ import axios from "axios";
 import { url } from "../instance/config";
 import { LOGING_IN, LOGIN_SUCCEEDS, LOGIN_FAILS, LOGOUT } from "./constants";
 
+import { push } from "react-router-redux";
+
 import Api from "./Api";
 
-import { error as danger, success, warning } from "./NotifyActions";
+import { error as danger, success, warning, clear } from "./NotifyActions";
 
 export function logingIn() {
 	return {
@@ -41,13 +43,15 @@ export function login(userData) {
 			.post(url + "/auth/login", userData)
 			.then(response => {
 				localStorage.setItem("token", response.data.token);
+				dispatch(loginSucceeds(response.data));
 				dispatch(success(response.data));
-				return dispatch(loginSucceeds(response.data));
+				return dispatch(clear(null));
 			})
 			.catch(error => {
 				if (error.response) {
+					dispatch(loginFails(error.response.data));
 					dispatch(danger(error.response.data));
-					return dispatch(loginFails(error.response.data));
+					return dispatch(clear(null));
 				}
 			});
 	};
@@ -59,12 +63,19 @@ export const logout = () => {
 			.Logout()
 			.then(response => {
 				localStorage.removeItem("token");
+				dispatch(logged_out(response.data));
 				dispatch(warning(response.data));
-				return dispatch(logged_out(response.data));
+				return dispatch(clear(null));
 			})
 			.catch(error => {
-				if (error.response) {
+				if (error.response.status === 401) {
+					localStorage.removeItem("token");
+					dispatch(logged_out(error.response.data));
 					dispatch(danger(error.response.data));
+					return dispatch(clear(null));
+				} else {
+					dispatch(warning(error.response.data));
+					return dispatch(clear(null));
 				}
 			});
 	};

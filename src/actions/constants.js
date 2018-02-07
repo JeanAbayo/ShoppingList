@@ -28,3 +28,4 @@ export const UPDATE_ITEM = "UPDATE_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
 // Shoppinglist request action loading
 export const REQUEST_LOADING = "REQUEST_LOADING";
+export const REQUEST_FINISHED = "REQUEST_FINISHED";

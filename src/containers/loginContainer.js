@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-ionicons";
+import { withRouter } from "react-router-dom";
 
 import { login } from "../actions/LoginActions";
 
@@ -33,7 +34,7 @@ class LoginContainer extends Component {
     this.props.login(this.state.userData);
   };
 
-  // After a succesful login, redirect to profile
+  // After a succesful login, redirect to dashboard
   componentDidUpdate() {
     if (this.props.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -101,4 +102,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { login })(LoginContainer);
+export default withRouter(connect(mapStateToProps, { login })(LoginContainer));

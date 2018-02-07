@@ -30,7 +30,7 @@ export default function notifyReducer(state = initialState.notify, action) {
     case CLEAR:
       return {
         ...state,
-        data: ""
+        data: action.data
       };
     default:
       return state;

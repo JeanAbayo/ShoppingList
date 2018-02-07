@@ -1,5 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import jquery from "jquery";
+
+// Import Error notifier
+import Notifier from "./notifier";
+
+import Loader from "../components/loader";
+import { createShoppinglist } from "../actions/ShoppingListsActions";
 
 const $ = (window.jQuery = jquery);
 
@@ -19,7 +26,12 @@ class CreateShoppinglist extends Component {
     const { handleModalCloseClick } = this.props;
     $(this.modal).modal("show");
     $(this.modal).on("hidden.bs.modal", handleModalCloseClick);
+
+    if (this.props.created && this.props.processing) {
+      this.props.history.push("/shoppinglists");
+    }
   }
+
   handleCloseClick() {
     const { handleModalCloseClick } = this.props;
     $(this.modal).modal("hide");
@@ -37,12 +49,13 @@ class CreateShoppinglist extends Component {
 
   submitShoppinglist = event => {
     event.preventDefault();
-    this.props.login(this.state.shoppinglistData);
+    this.props.createShoppinglist(this.state.shoppinglistData);
   };
 
   render() {
     return (
       <div className="show_create_sl">
+        {this.props.processing ? <Loader /> : null}
         <div
           className="modal fade"
           ref={modal => (this.modal = modal)}
@@ -80,6 +93,7 @@ class CreateShoppinglist extends Component {
                       name="title"
                       minLength="6"
                       value={this.state.shoppinglistData.title}
+                      onChange={this.handleInputChange}
                       required
                     />
                   </div>
@@ -91,6 +105,7 @@ class CreateShoppinglist extends Component {
                       name="description"
                       minLength="6"
                       value={this.state.shoppinglistData.description}
+                      onChange={this.handleInputChange}
                       required
                     />
                   </div>
@@ -116,4 +131,15 @@ class CreateShoppinglist extends Component {
   }
 }
 
-export default CreateShoppinglist;
+function mapStateToProps(state) {
+  const { payload, processing, created } = state.shoppinglist;
+  return {
+    processing,
+    payload,
+    created
+  };
+}
+
+export default connect(mapStateToProps, { createShoppinglist })(
+  CreateShoppinglist
+);

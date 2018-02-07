@@ -14,7 +14,7 @@ export const initialState = {
 	notify: {},
 	shoppinglist: {
 		processing: false,
-		processed: false,
+		created: false,
 		payload: []
 	}
 };

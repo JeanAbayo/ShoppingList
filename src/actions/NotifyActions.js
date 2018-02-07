@@ -28,8 +28,9 @@ export const warning = data => {
 	};
 };
 
-export const clear = () => {
+export const clear = data => {
 	return {
-		type: CLEAR
+		type: CLEAR,
+		data
 	};
 };

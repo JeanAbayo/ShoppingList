@@ -5,6 +5,11 @@ import { ShoppinglistBox } from "../components/shoppinglistBox";
 import { PaginationNav } from "../components/paginationNav";
 import { SearchBox } from "../components/searchBox";
 import CreateShoppinglist from "./createShoppinglist";
+
+import { login } from "../actions/LoginActions";
+import { createShoppinglist } from "../actions/ShoppingListsActions";
+// Import Error notifier
+import Notifier from "./notifier";
 import * as Icon from "react-ionicons";
 
 class DashboardContainer extends Component {
@@ -34,6 +39,9 @@ class DashboardContainer extends Component {
     const { showModal } = this.state;
     return (
       <div className="container-fluid">
+        {this.props.notify.type ? (
+          <Notifier message={this.props.notify} />
+        ) : null}
         <div className="row">
           <div className="col col-12 align-self-center">
             <div className="card sl_display_card">
@@ -63,6 +71,7 @@ class DashboardContainer extends Component {
                     {showModal ? (
                       <CreateShoppinglist
                         handleModalCloseClick={this.handleModalCloseClick}
+                        history={this.props.history}
                       />
                     ) : null}
                   </div>
@@ -83,12 +92,19 @@ class DashboardContainer extends Component {
 }
 
 function mapStateToProps(state) {
-  const { error, payload, isAuthenticated } = state.login;
+  const { error, isAuthenticated } = state.login;
+  const { created, payload, processing } = state.shoppinglist;
+  const { notify } = state;
   return {
     error,
     payload,
+    notify,
+    created,
+    processing,
     isAuthenticated
   };
 }
 
-export default withRouter(connect(mapStateToProps, {})(DashboardContainer));
+export default withRouter(
+  connect(mapStateToProps, { login, createShoppinglist })(DashboardContainer)
+);
