@@ -2,7 +2,8 @@ import { initialState } from "./initialState";
 import {
   REGISTERING,
   REGISTER_SUCCEEDS,
-  REGISTER_FAILS
+  REGISTER_FAILS,
+  REGISTER_DONE
 } from "../actions/constants";
 
 export default function registerReducer(state = initialState.register, action) {
@@ -26,6 +27,13 @@ export default function registerReducer(state = initialState.register, action) {
         registering: false,
         error: true,
         payload: action.payload
+      };
+    case REGISTER_DONE:
+      return {
+        ...state,
+        registering: false,
+        registered: false,
+        error: false
       };
     default:
       return state;

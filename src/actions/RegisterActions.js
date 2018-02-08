@@ -1,9 +1,14 @@
 import axios from "axios";
 
 import { url } from "../instance/config";
-import { REGISTERING, REGISTER_SUCCEEDS, REGISTER_FAILS } from "./constants";
+import {
+	REGISTERING,
+	REGISTER_SUCCEEDS,
+	REGISTER_FAILS,
+	REGISTER_DONE
+} from "./constants";
 
-import { error as danger, success } from "./NotifyActions";
+import { error as danger, success, clear } from "./NotifyActions";
 
 export function registering() {
 	return {
@@ -29,19 +34,28 @@ export function registerFails(data) {
 	};
 }
 
+export function registerDone(data) {
+	return {
+		type: REGISTER_DONE
+	};
+}
+
 export function register(newUser) {
 	return dispatch => {
 		dispatch(registering());
 		axios
-			.post(url + "auth/register", newUser)
+			.post(url + "/auth/register", newUser)
 			.then(response => {
+				dispatch(registerSucceeds(response.data));
 				dispatch(success(response.data));
-				return dispatch(registerSucceeds(response.data));
+				dispatch(clear());
+				return dispatch(registerDone());
 			})
 			.catch(error => {
 				if (error.response) {
+					dispatch(registerFails(error.response.data));
 					dispatch(danger(error.response.data));
-					return dispatch(registerFails(error.response.data));
+					return dispatch(clear());
 				}
 			});
 	};

@@ -1,11 +1,16 @@
 import React from "react";
 
-export const PaginationNav = () => (
+export const Pagination = props => (
   <div className="col col-12 align-self-center">
     <nav aria-label="...">
       <ul className="pagination pagination-lg">
         <li className="page-item disabled">
-          <a className="page-link" href="/" tabIndex="-1">
+          <a
+            className="page-link"
+            href="/"
+            tabIndex="-1"
+            onClick={this.switchPage}
+          >
             Previous
           </a>
         </li>

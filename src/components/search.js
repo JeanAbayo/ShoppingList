@@ -1,6 +1,6 @@
 import React from "react";
 
-export const SearchBox = () => (
+export const Search = () => (
 	<div className="form-group row search_box">
 		<div className="col-8">
 			<input

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
+
 // import container
 import LoginContainer from "../containers/loginContainer";
 // import components
@@ -31,4 +32,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

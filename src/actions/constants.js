@@ -2,6 +2,7 @@
 export const REGISTERING = "REGISTERING";
 export const REGISTER_FAILS = "REGISTER_FAILS";
 export const REGISTER_SUCCEEDS = "REGISTER_SUCCEEDS";
+export const REGISTER_DONE = "REGISTER_DONE";
 // Login constants
 export const LOGING_IN = "LOGING_IN";
 export const LOGIN_FAILS = "LOGIN_FAILS";

@@ -19,10 +19,14 @@ export default {
 	shoppinglists(url) {
 		return {
 			getOne: ({ id }) => axios.get(`${base_url}/${url}/${id}`),
-			getAll: () => axios.get(`${base_url}/${url}`),
+			getAll: ({ page, per_page }) =>
+				axios.get(`${base_url}/${url}`, {
+					params: { page, per_page }
+				}),
 			update: toUpdate => axios.put(`${base_url}/${url}`, toUpdate),
 			create: toCreate => axios.post(`${base_url}/${url}`, toCreate),
-			delete: ({ id }) => axios.delete(`${base_url}/${url}/${id}`)
+			delete: ({ id }) =>
+				axios.delete(`${base_url}/${url}/${id.toString()}`)
 		};
 	},
 	logout(url) {

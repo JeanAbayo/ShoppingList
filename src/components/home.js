@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
 // import components
-import SignupForm from "./helpers/signupForm";
+import SignupContainer from "../containers/signupContainer";
 import HomeSidebar from "./helpers/homeSidebar";
 
 class Home extends Component {
@@ -15,7 +16,7 @@ class Home extends Component {
               <div className="panel-heading">
                 <strong className="">Create a ShoppingList account</strong>
               </div>
-              <SignupForm />
+              <SignupContainer history={this.props.history} />
               <div className="panel-footer">
                 Alredy have an account?{" "}
                 <Link to="/login" className="">

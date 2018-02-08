@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { ShoppinglistBox } from "../components/shoppinglistBox";
-import { PaginationNav } from "../components/paginationNav";
-import { SearchBox } from "../components/searchBox";
-import CreateShoppinglist from "./createShoppinglist";
+import Shoppinglist from "../components/shoppinglist";
+import { Pagination } from "../components/pagination";
+import { Search } from "../components/search";
+import ShoppinglistContainer from "./shoppinglistContainer";
+// Import Error notifier
+import Notifier from "../components/notifier";
+import Loader from "../components/loader";
 
 import { login } from "../actions/LoginActions";
 import {
   createShoppinglist,
-  fetchShoppinglists
+  fetchShoppinglists,
+  editShoppinglist,
+  deleteShoppinglist
 } from "../actions/ShoppingListsActions";
-// Import Error notifier
-import Notifier from "./notifier";
-import Loader from "../components/loader";
+
 import * as Icon from "react-ionicons";
 
 class DashboardContainer extends Component {
@@ -22,26 +24,45 @@ class DashboardContainer extends Component {
     this.handleModalShowClick = this.handleModalShowClick.bind(this);
     this.handleModalCloseClick = this.handleModalCloseClick.bind(this);
     this.state = {
-      showModal: false
+      showModal: false,
+      delete: null,
+      page: 1,
+      per_page: 5,
+      page_number: null
     };
   }
 
-  handleModalShowClick(e) {
+  componentDidMount() {
+    this.props.fetchShoppinglists(this.state.page, this.state.per_page);
+    this.setState({
+      page_number: this.props.payload.length / this.state.per_page
+    });
+  }
+
+  changePage = (page, per_page) => {
+    this.setState({ page, per_page });
+  };
+
+  handleModalCloseClick = () => {
+    this.setState({
+      showModal: false
+    });
+  };
+
+  handleModalShowClick = e => {
     e.preventDefault();
     this.setState({
       showModal: true
     });
-  }
+  };
 
-  componentDidMount() {
-    this.props.fetchShoppinglists();
-  }
+  onDelete = shoppinglist => {
+    this.props.deleteShoppinglist(shoppinglist);
+  };
 
-  handleModalCloseClick() {
-    this.setState({
-      showModal: false
-    });
-  }
+  onEdit = data => {
+    this.props.editShoppinglist(data);
+  };
 
   render() {
     const { showModal } = this.state;
@@ -59,7 +80,7 @@ class DashboardContainer extends Component {
                   <h2 className="card-header">Your Shopping Lists</h2>
                 </div>
                 <div className="col-4">
-                  <SearchBox />
+                  <Search />
                   <Icon
                     icon="ios-create-outline"
                     fontSize="43px"
@@ -78,7 +99,7 @@ class DashboardContainer extends Component {
                 <div className="container">
                   <div className="row">
                     {showModal ? (
-                      <CreateShoppinglist
+                      <ShoppinglistContainer
                         handleModalCloseClick={this.handleModalCloseClick}
                         history={this.props.history}
                       />
@@ -87,10 +108,16 @@ class DashboardContainer extends Component {
                 </div>
               </div>
               <div className="card-block">
-                <ShoppinglistBox shoppinglists={this.props.payload} />
+                <Shoppinglist
+                  shoppinglists={this.props.payload}
+                  delete={this.onDelete}
+                />
               </div>
               <div className="row pagination_container">
-                <PaginationNav />
+                <Pagination
+                  onPageChange={this.changePage}
+                  numberOfPages={this.state.page_number}
+                />
               </div>
             </div>
           </div>
@@ -102,20 +129,22 @@ class DashboardContainer extends Component {
 
 function mapStateToProps(state) {
   const { error, isAuthenticated } = state.login;
-  const { created, payload, processing } = state.shoppinglist;
+  const { processed, payload, processing } = state.shoppinglist;
   const { notify } = state;
   return {
     error,
     payload,
     notify,
-    created,
+    processed,
     processing,
     isAuthenticated
   };
 }
 
-export default withRouter(
-  connect(mapStateToProps, { login, createShoppinglist, fetchShoppinglists })(
-    DashboardContainer
-  )
-);
+export default connect(mapStateToProps, {
+  login,
+  createShoppinglist,
+  fetchShoppinglists,
+  editShoppinglist,
+  deleteShoppinglist
+})(DashboardContainer);

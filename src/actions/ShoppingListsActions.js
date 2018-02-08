@@ -59,11 +59,11 @@ export const request_finished = type => {
 	};
 };
 
-export function fetchShoppinglists() {
+export function fetchShoppinglists(page, per_page) {
 	return dispatch => {
 		dispatch(request_loading("FETCH"));
 		Api.shoppinglists("shoppinglists")
-			.getAll()
+			.getAll({ page, per_page })
 			.then(response => {
 				dispatch(fetch_many_shoppinglists(response.data));
 				return dispatch(request_finished());
@@ -94,6 +94,48 @@ export function createShoppinglist(shoppinglist) {
 					dispatch(danger(error.response.data));
 					dispatch(request_finished());
 					return dispatch(clear());
+				}
+			});
+	};
+}
+
+export function editShoppinglist(shoppinglist_id) {
+	return dispatch => {
+		dispatch(request_loading("EDIT"));
+		Api.shoppinglists("shoppinglists")
+			.edit(shoppinglist_id)
+			.then(response => {
+				dispatch(update_shoppinglist(response.data));
+				dispatch(success(response.data));
+				dispatch(request_finished());
+				return dispatch(clear());
+			})
+			.catch(error => {
+				if (error.response) {
+					dispatch(danger(error.response.data));
+					dispatch(request_finished());
+					return dispatch(clear());
+				}
+			});
+	};
+}
+
+export function deleteShoppinglist(id) {
+	return dispatch => {
+		dispatch(request_loading("DELETE"));
+		Api.shoppinglists("shoppinglists")
+			.delete({ id })
+			.then(response => {
+				dispatch(delete_shoppinglist(response.data));
+				dispatch(success(response.data));
+				dispatch(clear());
+				return dispatch(request_finished());
+			})
+			.catch(error => {
+				if (error.response) {
+					dispatch(danger(error.response.data));
+					dispatch(clear());
+					return dispatch(request_finished());
 				}
 			});
 	};

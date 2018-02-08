@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-ionicons";
-import { withRouter } from "react-router-dom";
 
 import { login } from "../actions/LoginActions";
 
 // Import Error notifier
-import Notifier from "./notifier";
+import Notifier from "../components/notifier";
 import Loader from "../components/loader";
 
 class LoginContainer extends Component {
@@ -102,4 +101,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withRouter(connect(mapStateToProps, { login })(LoginContainer));
+export default connect(mapStateToProps, { login })(LoginContainer);

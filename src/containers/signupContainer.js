@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as Icon from "react-ionicons";
 
-import { register } from "../../actions/RegisterActions";
+import { register } from "../actions/RegisterActions";
 
 // Import Error notifier
-import Notifier from "../../containers/notifier";
+import Notifier from "../components/notifier";
+import Loader from "../components/loader";
 
-class SignupForm extends Component {
+class SignupContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -32,6 +33,12 @@ class SignupForm extends Component {
     });
   };
 
+  componentDidUpdate() {
+    if (this.props.registered) {
+      this.props.history.push("/login");
+    }
+  }
+
   registerUser = event => {
     event.preventDefault();
     this.props.register(this.state.newUser);
@@ -40,6 +47,7 @@ class SignupForm extends Component {
   render() {
     return (
       <div className="panel-body">
+        {this.props.registering ? <Loader /> : null}
         {this.props.notify.type ? (
           <Notifier message={this.props.notify} />
         ) : null}
@@ -146,14 +154,15 @@ class SignupForm extends Component {
   }
 }
 function mapStateToProps(state) {
-  const { error, payload, registered } = state.register;
+  const { error, payload, registered, registering } = state.register;
   const { notify } = state;
   return {
     error,
     payload,
     registered,
+    registering,
     notify
   };
 }
 
-export default connect(mapStateToProps, { register })(SignupForm);
+export default connect(mapStateToProps, { register })(SignupContainer);

@@ -20,40 +20,41 @@ export default function ShoppinglistReducer(
         ...state,
         processing: true
       };
-    case REQUEST_FINISHED:
-      return {
-        ...state,
-        processing: false
-      };
     case CREATE_SHOPPINGLIST:
       return {
         ...state,
-        created: true,
+        processed: true,
         payload: action.payload
       };
     case FETCH_SHOPPINGLIST:
       return {
         ...state,
-        created: true,
+        processed: true,
         payload: action.payload
       };
     case FETCH_MANY_SHOPPINGLISTS:
       return {
         ...state,
-        created: true,
+        processed: true,
         payload: action.payload
       };
     case UPDATE_SHOPPINGLIST:
       return {
         ...state,
-        created: true,
+        processed: true,
         payload: action.payload
       };
     case DELETE_SHOPPINGLIST:
       return {
         ...state,
-        created: true,
+        processed: true,
         payload: action.payload
+      };
+    case REQUEST_FINISHED:
+      return {
+        ...state,
+        processing: false,
+        processed: false
       };
 
     default:

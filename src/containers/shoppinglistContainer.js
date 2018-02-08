@@ -7,7 +7,7 @@ import { createShoppinglist } from "../actions/ShoppingListsActions";
 
 const $ = (window.jQuery = jquery);
 
-class CreateShoppinglist extends Component {
+class ShoppinglistContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +24,7 @@ class CreateShoppinglist extends Component {
     $(this.modal).modal("show");
     $(this.modal).on("hidden.bs.modal", handleModalCloseClick);
 
-    if (this.props.created && this.props.processing) {
+    if (this.props.processed && this.props.processing) {
       this.props.history.push("/shoppinglists");
     }
   }
@@ -129,14 +129,14 @@ class CreateShoppinglist extends Component {
 }
 
 function mapStateToProps(state) {
-  const { payload, processing, created } = state.shoppinglist;
+  const { payload, processing, processed } = state.shoppinglist;
   return {
     processing,
     payload,
-    created
+    processed
   };
 }
 
 export default connect(mapStateToProps, { createShoppinglist })(
-  CreateShoppinglist
+  ShoppinglistContainer
 );
