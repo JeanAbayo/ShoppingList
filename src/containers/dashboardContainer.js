@@ -39,6 +39,12 @@ class DashboardContainer extends Component {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.processed) {
+      this.props.fetchShoppinglists(this.state.page, this.state.per_page);
+    }
+  }
+
   changePage = (page, per_page) => {
     this.setState({ page, per_page });
   };
@@ -108,22 +114,25 @@ class DashboardContainer extends Component {
                 </div>
               </div>
               <div className="card-block">
-              {this.props.shoppinglists?(
-                this.props.shoppinglists.length > 0 ? (
-                  <Shoppinglist
-                    data={this.props.shoppinglists}
-                    empty={this.props.empty}
-                    delete={this.onDelete}
-                  />
-                ) : (
-                  <div className="list-group">
-                    <div className="d-flex w-100 justify-content-between">
-                      <h4>{this.props.payload.message}</h4>
+                {this.props.shoppinglists ? (
+                  this.props.shoppinglists.length > 0 ? (
+                    <Shoppinglist
+                      data={this.props.shoppinglists}
+                      delete={this.onDelete}
+                      payload={this.props.payload}
+                    />
+                  ) : (
+                    <div className="list-group">
+                      <div className="d-flex w-100 justify-content-between">
+                        <h4>{this.props.payload.message}</h4>
+                      </div>
                     </div>
+                  )
+                ) : (
+                  <div className="d-flex w-100 justify-content-between">
+                    <h4>No shoppinglists found</h4>
                   </div>
-                )): <div className="d-flex w-100 justify-content-between">
-                      <h4>No shoppinglists found</h4>
-                    </div> }
+                )}
               </div>
               <div className="row pagination_container">
                 <Pagination

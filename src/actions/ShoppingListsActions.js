@@ -73,11 +73,7 @@ export function fetchShoppinglists(page, per_page) {
 		Api.shoppinglists("shoppinglists")
 			.getAll({ page, per_page })
 			.then(response => {
-				console.log("Status", response);
-				if (
-					response.data.message ===
-					"No shoppinglists found here, please add them."
-				) {
+				if (response.data.message) {
 					return dispatch(empty_shoppinglist(response.data));
 				} else {
 					dispatch(fetch_many_shoppinglists(response.data));
@@ -86,8 +82,8 @@ export function fetchShoppinglists(page, per_page) {
 			})
 			.catch(error => {
 				if (error.response) {
-					dispatch(danger(error.response.data));
 					dispatch(request_finished());
+					dispatch(danger(error.response.data));
 					return dispatch(clear());
 				}
 			});
@@ -101,14 +97,14 @@ export function createShoppinglist(shoppinglist) {
 			.create(shoppinglist)
 			.then(response => {
 				dispatch(create_shoppinglist(response.data));
-				dispatch(success(response.data));
 				dispatch(request_finished());
+				dispatch(success(response.data));
 				return dispatch(clear());
 			})
 			.catch(error => {
 				if (error.response) {
-					dispatch(danger(error.response.data));
 					dispatch(request_finished());
+					dispatch(danger(error.response.data));
 					return dispatch(clear());
 				}
 			});
@@ -122,14 +118,14 @@ export function editShoppinglist(shoppinglist_id) {
 			.edit(shoppinglist_id)
 			.then(response => {
 				dispatch(update_shoppinglist(response.data));
-				dispatch(success(response.data));
 				dispatch(request_finished());
+				dispatch(success(response.data));
 				return dispatch(clear());
 			})
 			.catch(error => {
 				if (error.response) {
-					dispatch(danger(error.response.data));
 					dispatch(request_finished());
+					dispatch(danger(error.response.data));
 					return dispatch(clear());
 				}
 			});
@@ -143,15 +139,15 @@ export function deleteShoppinglist(id) {
 			.delete({ id })
 			.then(response => {
 				dispatch(delete_shoppinglist(response.data));
+				dispatch(request_finished());
 				dispatch(success(response.data));
-				dispatch(clear());
-				return dispatch(request_finished());
+				return dispatch(clear());
 			})
 			.catch(error => {
 				if (error.response) {
+					dispatch(request_finished());
 					dispatch(danger(error.response.data));
-					dispatch(clear());
-					return dispatch(request_finished());
+					return dispatch(clear());
 				}
 			});
 	};

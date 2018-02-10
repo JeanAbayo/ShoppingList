@@ -45,8 +45,9 @@ class ShoppinglistContainer extends Component {
   }
 
   submitShoppinglist = event => {
-    event.preventDefault();
     this.props.createShoppinglist(this.state.shoppinglistData);
+    this.handleCloseClick();
+    event.preventDefault();
   };
 
   render() {
