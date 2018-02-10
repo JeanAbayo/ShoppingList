@@ -6,6 +6,7 @@ import {
   FETCH_MANY_SHOPPINGLISTS,
   UPDATE_SHOPPINGLIST,
   DELETE_SHOPPINGLIST,
+  EMPTY_SHOPPINGLIST,
   REQUEST_LOADING,
   REQUEST_FINISHED
 } from "../actions/constants";
@@ -36,7 +37,7 @@ export default function ShoppinglistReducer(
       return {
         ...state,
         processed: true,
-        payload: action.payload
+        shoppinglists: action.shoppinglists
       };
     case UPDATE_SHOPPINGLIST:
       return {
@@ -50,11 +51,18 @@ export default function ShoppinglistReducer(
         processed: true,
         payload: action.payload
       };
+    case EMPTY_SHOPPINGLIST:
+      return {
+        ...state,
+        empty: true,
+        payload: action.payload
+      };
     case REQUEST_FINISHED:
       return {
         ...state,
         processing: false,
-        processed: false
+        processed: false,
+        empty: false
       };
 
     default:

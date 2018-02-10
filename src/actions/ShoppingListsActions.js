@@ -4,6 +4,7 @@ import {
 	FETCH_MANY_SHOPPINGLISTS,
 	UPDATE_SHOPPINGLIST,
 	DELETE_SHOPPINGLIST,
+	EMPTY_SHOPPINGLIST,
 	REQUEST_LOADING,
 	REQUEST_FINISHED
 } from "./constants";
@@ -42,6 +43,13 @@ export const fetch_shoppinglist = payload => {
 export const fetch_many_shoppinglists = payload => {
 	return {
 		type: FETCH_MANY_SHOPPINGLISTS,
+		shoppinglists: payload
+	};
+};
+
+export const empty_shoppinglist = payload => {
+	return {
+		type: EMPTY_SHOPPINGLIST,
 		payload
 	};
 };
@@ -65,8 +73,16 @@ export function fetchShoppinglists(page, per_page) {
 		Api.shoppinglists("shoppinglists")
 			.getAll({ page, per_page })
 			.then(response => {
-				dispatch(fetch_many_shoppinglists(response.data));
-				return dispatch(request_finished());
+				console.log("Status", response);
+				if (
+					response.data.message ===
+					"No shoppinglists found here, please add them."
+				) {
+					return dispatch(empty_shoppinglist(response.data));
+				} else {
+					dispatch(fetch_many_shoppinglists(response.data));
+					return dispatch(request_finished());
+				}
 			})
 			.catch(error => {
 				if (error.response) {

@@ -108,10 +108,22 @@ class DashboardContainer extends Component {
                 </div>
               </div>
               <div className="card-block">
-                <Shoppinglist
-                  shoppinglists={this.props.payload}
-                  delete={this.onDelete}
-                />
+              {this.props.shoppinglists?(
+                this.props.shoppinglists.length > 0 ? (
+                  <Shoppinglist
+                    data={this.props.shoppinglists}
+                    empty={this.props.empty}
+                    delete={this.onDelete}
+                  />
+                ) : (
+                  <div className="list-group">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h4>{this.props.payload.message}</h4>
+                    </div>
+                  </div>
+                )): <div className="d-flex w-100 justify-content-between">
+                      <h4>No shoppinglists found</h4>
+                    </div> }
               </div>
               <div className="row pagination_container">
                 <Pagination
@@ -129,12 +141,20 @@ class DashboardContainer extends Component {
 
 function mapStateToProps(state) {
   const { error, isAuthenticated } = state.login;
-  const { processed, payload, processing } = state.shoppinglist;
+  const {
+    processed,
+    payload,
+    processing,
+    empty,
+    shoppinglists
+  } = state.shoppinglist;
   const { notify } = state;
   return {
     error,
     payload,
+    shoppinglists,
     notify,
+    empty,
     processed,
     processing,
     isAuthenticated
