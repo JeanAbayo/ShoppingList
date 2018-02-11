@@ -12,8 +12,9 @@ import { login } from "../actions/LoginActions";
 import {
   createShoppinglist,
   fetchShoppinglists,
-  editShoppinglist,
-  deleteShoppinglist
+  updateShoppinglist,
+  deleteShoppinglist,
+  getShoppinglist
 } from "../actions/ShoppingListsActions";
 
 import * as Icon from "react-ionicons";
@@ -25,7 +26,7 @@ class DashboardContainer extends Component {
     this.handleModalCloseClick = this.handleModalCloseClick.bind(this);
     this.state = {
       showModal: false,
-      delete: null,
+      action: null,
       page: 1,
       per_page: 5,
       page_number: null
@@ -55,19 +56,33 @@ class DashboardContainer extends Component {
     });
   };
 
-  handleModalShowClick = e => {
-    e.preventDefault();
+  handleModalShowClick = () => {
     this.setState({
       showModal: true
     });
   };
 
+  onCreate = () => {
+    this.handleModalShowClick();
+    this.setState({
+      action: "create"
+    });
+  };
+
   onDelete = shoppinglist => {
+    this.setState({
+      action: "delete"
+    });
     this.props.deleteShoppinglist(shoppinglist);
   };
 
   onEdit = data => {
-    this.props.editShoppinglist(data);
+    this.handleModalShowClick();
+    this.setState({
+      action: "edit"
+    });
+    this.props.getShoppinglist(data);
+    // this.props.editShoppinglist(data);
   };
 
   render() {
@@ -92,7 +107,7 @@ class DashboardContainer extends Component {
                     fontSize="43px"
                     color="#fff"
                     className="create_sl"
-                    onClick={this.handleModalShowClick}
+                    onClick={this.onCreate}
                   />
                   <Icon
                     icon="ios-search-outline"
@@ -108,30 +123,27 @@ class DashboardContainer extends Component {
                       <ShoppinglistContainer
                         handleModalCloseClick={this.handleModalCloseClick}
                         history={this.props.history}
+                        action={this.state.action}
+                        editData={this.props.payload}
                       />
                     ) : null}
                   </div>
                 </div>
               </div>
               <div className="card-block">
-                {this.props.shoppinglists ? (
-                  this.props.shoppinglists.length > 0 ? (
-                    <Shoppinglist
-                      data={this.props.shoppinglists}
-                      delete={this.onDelete}
-                      payload={this.props.payload}
-                    />
-                  ) : (
-                    <div className="list-group">
-                      <div className="d-flex w-100 justify-content-between">
-                        <h4>{this.props.payload.message}</h4>
-                      </div>
+                {this.props.empty ? (
+                  <div className="list-group">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h4>{this.props.payload.message}</h4>
                     </div>
-                  )
-                ) : (
-                  <div className="d-flex w-100 justify-content-between">
-                    <h4>No shoppinglists found</h4>
                   </div>
+                ) : (
+                  <Shoppinglist
+                    data={this.props.shoppinglists}
+                    delete={this.onDelete}
+                    edit={this.onEdit}
+                    payload={this.props.payload}
+                  />
                 )}
               </div>
               <div className="row pagination_container">
@@ -174,6 +186,7 @@ export default connect(mapStateToProps, {
   login,
   createShoppinglist,
   fetchShoppinglists,
-  editShoppinglist,
-  deleteShoppinglist
+  updateShoppinglist,
+  deleteShoppinglist,
+  getShoppinglist
 })(DashboardContainer);

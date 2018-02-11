@@ -18,12 +18,17 @@ axios.interceptors.request.use(
 export default {
 	shoppinglists(url) {
 		return {
-			getOne: ({ id }) => axios.get(`${base_url}/${url}/${id}`),
+			getOne: ({ id }) =>
+				axios.get(`${base_url}/${url}/${id.toString()}`),
 			getAll: ({ page, per_page }) =>
 				axios.get(`${base_url}/${url}`, {
 					params: { page, per_page }
 				}),
-			update: toUpdate => axios.put(`${base_url}/${url}`, toUpdate),
+			update: ({ shoppinglist }) =>
+				axios.put(
+					`${base_url}/${url}/${shoppinglist.id.toString()}`,
+					shoppinglist.data
+				),
 			create: toCreate => axios.post(`${base_url}/${url}`, toCreate),
 			delete: ({ id }) =>
 				axios.delete(`${base_url}/${url}/${id.toString()}`)

@@ -111,11 +111,30 @@ export function createShoppinglist(shoppinglist) {
 	};
 }
 
-export function editShoppinglist(shoppinglist_id) {
+export function getShoppinglist(id) {
+	return dispatch => {
+		dispatch(request_loading("GET_ONE"));
+		Api.shoppinglists("shoppinglists")
+			.getOne({ id })
+			.then(response => {
+				dispatch(fetch_shoppinglist(response.data));
+				return dispatch(request_finished());
+			})
+			.catch(error => {
+				if (error.response) {
+					dispatch(request_finished());
+					dispatch(danger(error.response.data));
+					return dispatch(clear());
+				}
+			});
+	};
+}
+
+export function updateShoppinglist(shoppinglist) {
 	return dispatch => {
 		dispatch(request_loading("EDIT"));
 		Api.shoppinglists("shoppinglists")
-			.edit(shoppinglist_id)
+			.update({ shoppinglist })
 			.then(response => {
 				dispatch(update_shoppinglist(response.data));
 				dispatch(request_finished());
