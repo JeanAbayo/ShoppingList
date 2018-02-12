@@ -31,20 +31,19 @@ class ItemsContainer extends Component {
       toCreate: "",
       page: 1,
       per_page: 5,
-      page_number: null
+      page_number: null,
+      itemData: {
+        item_title: "",
+        item_description: ""
+      }
     };
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   openModal() {
     this.setState({ modalIsOpen: true });
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    // this.subtitle.style.color = "#f00";
   }
 
   closeModal() {
@@ -60,6 +59,21 @@ class ItemsContainer extends Component {
       this.props.fetchAllItems(this.props.shoppinglist[0].id);
     }
   }
+
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      itemData: { ...this.state.itemData, [name]: value }
+    });
+  }
+
+  updateItem = e => {
+    e.preventDefault();
+    this.closeModal;
+    this.props.updateItem(this.state.itemData);
+  };
 
   onDelete = item => {
     this.props.deleteItem({
@@ -130,7 +144,7 @@ class ItemsContainer extends Component {
                         </div>
                         <form
                           className="form-horizontal"
-                          onSubmit={this.addItem}
+                          onSubmit={this.updateItem}
                         >
                           <div className="modal-body">
                             <div className="form-group">
@@ -140,6 +154,7 @@ class ItemsContainer extends Component {
                                 type="text"
                                 name="item_title"
                                 minLength="6"
+                                value={this.state.itemData.item_title}
                                 onChange={this.handleInputChange}
                                 required
                               />
@@ -150,6 +165,7 @@ class ItemsContainer extends Component {
                                 placeholder="Item description"
                                 type="description"
                                 name="item_description"
+                                value={this.state.itemData.item_desription}
                                 minLength="6"
                                 onChange={this.handleInputChange}
                                 required
