@@ -1,12 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 import * as Icon from "react-ionicons";
 
 class Items extends Component {
   editItem = event => {
     event.preventDefault();
-    const toEdit = event.currentTarget.dataset.id;
+    const toEdit = event.currentTarget.dataset.item;
     this.props.edit(toEdit);
   };
 
@@ -42,7 +41,7 @@ class Items extends Component {
               <button
                 type="button"
                 className="btn btn-primary"
-                data-id={item.item_id}
+                data-item={JSON.stringify(item)}
                 onClick={this.editItem}
               >
                 <Icon

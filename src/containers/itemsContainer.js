@@ -6,10 +6,7 @@ import Notifier from "../components/notifier";
 import Loader from "../components/loader";
 import Modal from "react-modal";
 
-import { login } from "../actions/LoginActions";
 import { updateItem, deleteItem, fetchAllItems } from "../actions/ItemsActions";
-
-import * as Icon from "react-ionicons";
 
 const customStyles = {
   content: {
@@ -35,7 +32,8 @@ class ItemsContainer extends Component {
       itemData: {
         item_title: "",
         item_description: ""
-      }
+      },
+      item: ""
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -69,10 +67,13 @@ class ItemsContainer extends Component {
     });
   }
 
-  updateItem = e => {
-    e.preventDefault();
-    this.closeModal;
-    this.props.updateItem(this.state.itemData);
+  updateItem = item => {
+    this.closeModal();
+    this.props.updateItem({
+      shoppinglist: this.props.shoppinglist[0].id,
+      item: this.state.item,
+      data: this.state.itemData
+    });
   };
 
   onDelete = item => {
@@ -82,7 +83,16 @@ class ItemsContainer extends Component {
     });
   };
 
-  onEdit = data => {
+  onEdit = item => {
+    const data = JSON.parse(item);
+    this.setState({
+      item: data.item_id,
+      itemData: {
+        ...this.state.itemData,
+        item_description: data.item_description,
+        item_title: data.item_title
+      }
+    });
     this.openModal();
   };
 
@@ -165,7 +175,7 @@ class ItemsContainer extends Component {
                                 placeholder="Item description"
                                 type="description"
                                 name="item_description"
-                                value={this.state.itemData.item_desription}
+                                value={this.state.itemData.item_description}
                                 minLength="6"
                                 onChange={this.handleInputChange}
                                 required

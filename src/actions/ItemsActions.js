@@ -7,8 +7,6 @@ import {
 	REQUEST_FINISHED
 } from "./constants";
 
-import { getShoppinglist } from "./ShoppingListsActions";
-
 import { error as danger, success, clear } from "./NotifyActions";
 import Api from "./Api";
 
@@ -78,7 +76,7 @@ export function updateItem(item) {
 	return dispatch => {
 		dispatch(request_loading("DELETE"));
 		Api.shoppinglists("shoppinglists")
-			.createItem({ item })
+			.updateItem({ item })
 			.then(response => {
 				dispatch(update_item(response.data));
 				dispatch(request_finished());

@@ -37,6 +37,11 @@ export default {
 					`${base_url}/${url}/${item.id.toString()}/items`,
 					item.data
 				),
+			updateItem: ({ item }) =>
+				axios.put(
+					`${base_url}/${url}/${item.shoppinglist.toString()}/items/${item.item.toString()}`,
+					item.data
+				),
 			deleteItem: ({ data }) =>
 				axios.delete(
 					`${base_url}/${url}/${data.shoppinglist.toString()}/items/${data.item.toString()}`
