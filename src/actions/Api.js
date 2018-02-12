@@ -31,7 +31,14 @@ export default {
 				),
 			create: toCreate => axios.post(`${base_url}/${url}`, toCreate),
 			delete: ({ id }) =>
-				axios.delete(`${base_url}/${url}/${id.toString()}`)
+				axios.delete(`${base_url}/${url}/${id.toString()}`),
+			createItem: ({ item }) =>
+				axios.post(
+					`${base_url}/${url}/${item.id.toString()}/items`,
+					item.data
+				),
+			getAllItems: ({ id }) =>
+				axios.get(`${base_url}/${url}/${id.toString()}/items`)
 		};
 	},
 	logout(url) {

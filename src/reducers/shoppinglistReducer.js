@@ -7,6 +7,7 @@ import {
   UPDATE_SHOPPINGLIST,
   DELETE_SHOPPINGLIST,
   EMPTY_SHOPPINGLIST,
+  CREATE_ITEM,
   REQUEST_LOADING,
   REQUEST_FINISHED
 } from "../actions/constants";
@@ -21,6 +22,7 @@ export default function ShoppinglistReducer(
         ...state,
         processing: true
       };
+
     case CREATE_SHOPPINGLIST:
       return {
         ...state,
@@ -28,6 +30,7 @@ export default function ShoppinglistReducer(
         processed: true,
         payload: action.payload
       };
+
     case FETCH_SHOPPINGLIST:
       return {
         ...state,
@@ -35,12 +38,14 @@ export default function ShoppinglistReducer(
         processed: true,
         payload: action.payload
       };
+
     case FETCH_MANY_SHOPPINGLISTS:
       return {
         ...state,
         processing: false,
         shoppinglists: action.shoppinglists
       };
+
     case UPDATE_SHOPPINGLIST:
       return {
         ...state,
@@ -48,6 +53,7 @@ export default function ShoppinglistReducer(
         processed: true,
         payload: action.payload
       };
+
     case DELETE_SHOPPINGLIST:
       return {
         ...state,
@@ -55,6 +61,7 @@ export default function ShoppinglistReducer(
         processed: true,
         payload: action.payload
       };
+
     case EMPTY_SHOPPINGLIST:
       return {
         ...state,
@@ -63,6 +70,15 @@ export default function ShoppinglistReducer(
         processing: false,
         processed: false
       };
+
+    case CREATE_ITEM:
+      return {
+        ...state,
+        processing: false,
+        processed: true,
+        payload: action.payload
+      };
+
     case REQUEST_FINISHED:
       return {
         ...state,

@@ -1,22 +1,33 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import * as Icon from "react-ionicons";
 
 class Shoppinglist extends Component {
   editShoppinglist = event => {
+    event.preventDefault();
     const toEdit = event.currentTarget.dataset.id;
     this.props.edit(toEdit);
   };
   deleteShoppinglist = event => {
+    event.preventDefault();
     const toDelete = event.currentTarget.dataset.id;
     this.props.delete(toDelete);
+  };
+  addItem = event => {
+    event.preventDefault();
+    const item = event.currentTarget.dataset.id;
+    this.props.toAddOn(item);
   };
   render() {
     return (
       <div>
         {this.props.data.map(shoppinglist => (
           <div className="list-group" key={shoppinglist.id}>
-            <a className="list-group-item list-group-item-action flex-column align-items-start">
+            <Link
+              to={`/shoppinglists/${shoppinglist.id}`}
+              className="list-group-item list-group-item-action flex-column align-items-start"
+            >
               <div className="d-flex w-100 justify-content-between">
                 <h4 className="mb-1">{shoppinglist.title}</h4>
                 <small>{shoppinglist.date_created.slice(0, 16)}</small>
@@ -68,7 +79,12 @@ class Shoppinglist extends Component {
                   role="group"
                   aria-label="Third group"
                 >
-                  <button type="button" className="btn btn-info">
+                  <button
+                    type="button"
+                    className="btn btn-info"
+                    data-id={shoppinglist.id}
+                    onClick={this.addItem}
+                  >
                     <Icon
                       icon="ios-open-outline"
                       fontSize="23px"
@@ -77,7 +93,7 @@ class Shoppinglist extends Component {
                   </button>
                 </div>
               </div>
-            </a>
+            </Link>
           </div>
         ))}
       </div>

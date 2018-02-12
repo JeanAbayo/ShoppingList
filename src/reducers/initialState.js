@@ -18,5 +18,12 @@ export const initialState = {
 		shoppinglists: [],
 		payload: [],
 		empty: false
+	},
+	items: {
+		processing: false,
+		processed: false,
+		payload: [],
+		items: [],
+		empty: false
 	}
 };

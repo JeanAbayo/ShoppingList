@@ -4,6 +4,7 @@ import Shoppinglist from "../components/shoppinglist";
 import { Pagination } from "../components/pagination";
 import { Search } from "../components/search";
 import ShoppinglistContainer from "./shoppinglistContainer";
+import ItemsContainer from "./itemsContainer";
 // Import Error notifier
 import Notifier from "../components/notifier";
 import Loader from "../components/loader";
@@ -27,6 +28,7 @@ class DashboardContainer extends Component {
     this.state = {
       showModal: false,
       action: null,
+      toCreate: "",
       page: 1,
       per_page: 5,
       page_number: null
@@ -74,6 +76,14 @@ class DashboardContainer extends Component {
       action: "delete"
     });
     this.props.deleteShoppinglist(shoppinglist);
+  };
+
+  addItem = shoppinglist => {
+    this.handleModalShowClick();
+    this.setState({
+      action: "addItem",
+      toCreate: shoppinglist
+    });
   };
 
   onEdit = data => {
@@ -125,6 +135,7 @@ class DashboardContainer extends Component {
                         history={this.props.history}
                         action={this.state.action}
                         editData={this.props.payload}
+                        toCreate={this.state.toCreate}
                       />
                     ) : null}
                   </div>
@@ -138,12 +149,21 @@ class DashboardContainer extends Component {
                     </div>
                   </div>
                 ) : (
-                  <Shoppinglist
-                    data={this.props.shoppinglists}
-                    delete={this.onDelete}
-                    edit={this.onEdit}
-                    payload={this.props.payload}
-                  />
+                  <div>
+                    {this.props.match.params.shoppinglistId ? (
+                      <ItemsContainer
+                        shoppinglist={this.props.match.params.shoppinglistId}
+                      />
+                    ) : (
+                      <Shoppinglist
+                        data={this.props.shoppinglists}
+                        delete={this.onDelete}
+                        edit={this.onEdit}
+                        toAddOn={this.addItem}
+                        payload={this.props.payload}
+                      />
+                    )}
+                  </div>
                 )}
               </div>
               <div className="row pagination_container">

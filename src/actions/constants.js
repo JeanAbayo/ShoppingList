@@ -28,6 +28,7 @@ export const FETCH_ITEM = "FETCH_ITEM";
 export const FETCH_MANY_ITEMS = "FETCH_MANY_ITEMS";
 export const UPDATE_ITEM = "UPDATE_ITEM";
 export const DELETE_ITEM = "DELETE_ITEM";
+export const EMPTY_ITEMS = "EMPTY_ITEMS";
 // Shoppinglist request action loading
 export const REQUEST_LOADING = "REQUEST_LOADING";
 export const REQUEST_FINISHED = "REQUEST_FINISHED";

@@ -5,6 +5,7 @@ import {
 	UPDATE_SHOPPINGLIST,
 	DELETE_SHOPPINGLIST,
 	EMPTY_SHOPPINGLIST,
+	CREATE_ITEM,
 	REQUEST_LOADING,
 	REQUEST_FINISHED
 } from "./constants";
@@ -54,6 +55,13 @@ export const empty_shoppinglist = payload => {
 	};
 };
 
+export const create_item = payload => {
+	return {
+		type: CREATE_ITEM,
+		payload
+	};
+};
+
 export const request_loading = type => {
 	return {
 		type: REQUEST_LOADING,
@@ -90,16 +98,14 @@ export function fetchShoppinglists(page, per_page) {
 	};
 }
 
-export function createShoppinglist(shoppinglist) {
+export function getShoppinglist(id) {
 	return dispatch => {
-		dispatch(request_loading("CREATE"));
+		dispatch(request_loading("GET_ONE"));
 		Api.shoppinglists("shoppinglists")
-			.create(shoppinglist)
+			.getOne({ id })
 			.then(response => {
-				dispatch(create_shoppinglist(response.data));
-				dispatch(request_finished());
-				dispatch(success(response.data));
-				return dispatch(clear());
+				dispatch(fetch_shoppinglist(response.data));
+				return dispatch(request_finished());
 			})
 			.catch(error => {
 				if (error.response) {
@@ -111,14 +117,16 @@ export function createShoppinglist(shoppinglist) {
 	};
 }
 
-export function getShoppinglist(id) {
+export function createShoppinglist(shoppinglist) {
 	return dispatch => {
-		dispatch(request_loading("GET_ONE"));
+		dispatch(request_loading("CREATE"));
 		Api.shoppinglists("shoppinglists")
-			.getOne({ id })
+			.create(shoppinglist)
 			.then(response => {
-				dispatch(fetch_shoppinglist(response.data));
-				return dispatch(request_finished());
+				dispatch(create_shoppinglist(response.data));
+				dispatch(request_finished());
+				dispatch(success(response.data));
+				return dispatch(clear());
 			})
 			.catch(error => {
 				if (error.response) {
@@ -158,6 +166,27 @@ export function deleteShoppinglist(id) {
 			.delete({ id })
 			.then(response => {
 				dispatch(delete_shoppinglist(response.data));
+				dispatch(request_finished());
+				dispatch(success(response.data));
+				return dispatch(clear());
+			})
+			.catch(error => {
+				if (error.response) {
+					dispatch(request_finished());
+					dispatch(danger(error.response.data));
+					return dispatch(clear());
+				}
+			});
+	};
+}
+
+export function addItem(item) {
+	return dispatch => {
+		dispatch(request_loading("DELETE"));
+		Api.shoppinglists("shoppinglists")
+			.createItem({ item })
+			.then(response => {
+				dispatch(create_item(response.data));
 				dispatch(request_finished());
 				dispatch(success(response.data));
 				return dispatch(clear());

@@ -43,6 +43,10 @@ class App extends Component {
                     path="/dashboard"
                     component={DashboardContainer}
                   />
+                  <ProtectedRoute
+                    path="/shoppinglists/:shoppinglistId"
+                    component={DashboardContainer}
+                  />
                 </Switch>
               </section>
               <section className="sl_footer">

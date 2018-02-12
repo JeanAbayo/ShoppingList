@@ -6,45 +6,47 @@ import { logout } from "../../actions/LoginActions";
 class Menu extends Component {
   render() {
     const isAuthenticated = this.props.isAuthenticated;
-    return (
-      <ul className="navbar-nav ml-auto">
-        {isAuthenticated ? null : (
-          <li className="nav-item active">
-            <Link className="nav-link" to="/explore">
-              Explore
+    if (isAuthenticated) {
+      return (
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link MenuButton" to="/dashboard">
+              Dashboard
             </Link>
           </li>
-        )}
-        {isAuthenticated ? null : (
-          <li className="nav-item">
-            <Link className="nav-link" to="/login">
-              Login
-            </Link>
-          </li>
-        )}
-        {isAuthenticated ? null : (
-          <li className="nav-item">
-            <Link className="nav-link" to="/signup">
-              Signup
-            </Link>
-          </li>
-        )}
-        {isAuthenticated ? (
-          <li className="nav-item">
-            <button className="nav-link MenuButton" onClick={this.props.logout}>
-              Logout
-            </button>
-          </li>
-        ) : null}
-        {isAuthenticated ? (
           <li className="nav-item">
             <Link className="nav-link MenuButton" to="/profile">
               Profile
             </Link>
           </li>
-        ) : null}
-      </ul>
-    );
+          <li className="nav-item">
+            <button className="nav-link MenuButton" onClick={this.props.logout}>
+              Logout
+            </button>
+          </li>
+        </ul>
+      );
+    } else {
+      return (
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/login">
+              Login
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/signup">
+              Signup
+            </Link>
+          </li>
+          <li className="nav-item active">
+            <Link className="nav-link" to="/explore">
+              Explore
+            </Link>
+          </li>
+        </ul>
+      );
+    }
   }
 }
 

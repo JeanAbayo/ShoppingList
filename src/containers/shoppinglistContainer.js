@@ -5,7 +5,8 @@ import jquery from "jquery";
 import Loader from "../components/loader";
 import {
   createShoppinglist,
-  updateShoppinglist
+  updateShoppinglist,
+  addItem
 } from "../actions/ShoppingListsActions";
 
 const $ = (window.jQuery = jquery);
@@ -13,6 +14,10 @@ const initialState = {
   shoppinglistData: {
     title: "",
     description: ""
+  },
+  itemData: {
+    item_title: "",
+    item_description: ""
   }
 };
 
@@ -28,9 +33,6 @@ class ShoppinglistContainer extends Component {
     $(this.modal).modal("show");
     $(this.modal).on("hidden.bs.modal", handleModalCloseClick);
 
-    if (this.props.processed && this.props.processing) {
-      this.props.history.push("/shoppinglists");
-    }
     if (this.props.action === "edit") {
       this.setState({
         shoppinglistData: {
@@ -53,10 +55,25 @@ class ShoppinglistContainer extends Component {
     const target = event.target;
     const value = target.value;
     const name = target.name;
-    this.setState({
-      shoppinglistData: { ...this.state.shoppinglistData, [name]: value }
-    });
+    if (this.props.action === "addItem") {
+      this.setState({
+        itemData: { ...this.state.itemData, [name]: value }
+      });
+    } else {
+      this.setState({
+        shoppinglistData: { ...this.state.shoppinglistData, [name]: value }
+      });
+    }
   }
+
+  addItem = e => {
+    e.preventDefault();
+    this.props.addItem({
+      data: this.state.itemData,
+      id: this.props.toCreate
+    });
+    this.handleCloseClick();
+  };
 
   updateShoppinglist = e => {
     e.preventDefault();
@@ -226,6 +243,77 @@ class ShoppinglistContainer extends Component {
           </div>
         </div>
       );
+    } else if (this.props.action === "addItem") {
+      return (
+        <div className="show_create_sl">
+          {this.props.processing ? <Loader /> : null}
+          <div
+            className="modal fade"
+            ref={modal => (this.modal = modal)}
+            id="exampleModal"
+            tabIndex="-1"
+            role="dialog"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">
+                    Add an item on your shoppinglist
+                  </h5>
+                  <button
+                    type="button"
+                    className="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <form className="form-horizontal" onSubmit={this.addItem}>
+                  <div className="modal-body">
+                    <div className="form-group">
+                      <input
+                        className="form-control"
+                        placeholder="Item title"
+                        type="text"
+                        name="item_title"
+                        minLength="6"
+                        onChange={this.handleInputChange}
+                        required
+                      />
+                    </div>
+                    <div className="form-group">
+                      <textarea
+                        className="form-control"
+                        placeholder="Item description"
+                        type="description"
+                        name="item_description"
+                        minLength="6"
+                        onChange={this.handleInputChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="submit" className="btn btn-primary">
+                      Save
+                    </button>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      onClick={this.handleCloseClick}
+                    >
+                      Close
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
     }
   }
 }
@@ -241,5 +329,6 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   createShoppinglist,
-  updateShoppinglist
+  updateShoppinglist,
+  addItem
 })(ShoppinglistContainer);
