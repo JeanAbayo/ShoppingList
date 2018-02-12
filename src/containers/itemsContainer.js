@@ -163,7 +163,7 @@ class ItemsContainer extends Component {
                             <button
                               type="button"
                               className="btn btn-secondary"
-                              onClick={this.handleCloseClick}
+                              onClick={this.closeModal}
                             >
                               Close
                             </button>

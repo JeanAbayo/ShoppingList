@@ -287,3 +287,11 @@ button.close-0-32.close {
 
 .card-block.items-block {
   margin-left: 3em; }
+
+.list-group-item:focus,
+.list-group-item:hover {
+  z-index: unset; }
+
+.ReactModal__Content {
+  border: unset !important;
+  background: unset !important; }
