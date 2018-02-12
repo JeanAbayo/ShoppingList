@@ -20,8 +20,8 @@ export const initialState = {
 		empty: false
 	},
 	items: {
-		processing: false,
-		processed: false,
+		loading: false,
+		loaded: false,
 		payload: [],
 		items: [],
 		empty: false

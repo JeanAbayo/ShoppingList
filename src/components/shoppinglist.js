@@ -4,6 +4,12 @@ import { Link } from "react-router-dom";
 import * as Icon from "react-ionicons";
 
 class Shoppinglist extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: []
+    };
+  }
   editShoppinglist = event => {
     event.preventDefault();
     const toEdit = event.currentTarget.dataset.id;
@@ -19,6 +25,7 @@ class Shoppinglist extends Component {
     const item = event.currentTarget.dataset.id;
     this.props.toAddOn(item);
   };
+
   render() {
     return (
       <div>

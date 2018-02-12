@@ -18,6 +18,8 @@ import {
   getShoppinglist
 } from "../actions/ShoppingListsActions";
 
+import { fetchAllItems } from "../actions/ItemsActions";
+
 import * as Icon from "react-ionicons";
 
 class DashboardContainer extends Component {
@@ -96,6 +98,10 @@ class DashboardContainer extends Component {
   };
 
   render() {
+    let itemShoppinglist = this.props.shoppinglists.filter(
+      shoppinglist =>
+        shoppinglist["id"] === this.props.match.params.shoppinglistId * 1
+    );
     const { showModal } = this.state;
     return (
       <div className="container-fluid">
@@ -151,9 +157,7 @@ class DashboardContainer extends Component {
                 ) : (
                   <div>
                     {this.props.match.params.shoppinglistId ? (
-                      <ItemsContainer
-                        shoppinglist={this.props.match.params.shoppinglistId}
-                      />
+                      <ItemsContainer shoppinglist={itemShoppinglist} />
                     ) : (
                       <Shoppinglist
                         data={this.props.shoppinglists}
@@ -189,6 +193,7 @@ function mapStateToProps(state) {
     empty,
     shoppinglists
   } = state.shoppinglist;
+  const { items } = state.items;
   const { notify } = state;
   return {
     error,
@@ -196,6 +201,7 @@ function mapStateToProps(state) {
     shoppinglists,
     notify,
     empty,
+    items,
     processed,
     processing,
     isAuthenticated
@@ -208,5 +214,6 @@ export default connect(mapStateToProps, {
   fetchShoppinglists,
   updateShoppinglist,
   deleteShoppinglist,
-  getShoppinglist
+  getShoppinglist,
+  fetchAllItems
 })(DashboardContainer);

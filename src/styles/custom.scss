@@ -265,6 +265,10 @@ button.close-0-32.close {
 	background: unset;
 }
 .sl_display_card h4 {
+	text-transform: capitalize;
+}
+.sl_display_card h4,
+.sl_display_card p {
 	margin-left: 1em;
 	color: #324951;
 }
@@ -290,4 +294,7 @@ button.close-0-32.close {
 .show_create_sl .modal-body .form-control:focus {
 	background: unset;
 	box-shadow: unset;
+}
+.card-block.items-block {
+	margin-left: 3em;
 }

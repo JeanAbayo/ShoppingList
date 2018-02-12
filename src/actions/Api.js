@@ -37,6 +37,10 @@ export default {
 					`${base_url}/${url}/${item.id.toString()}/items`,
 					item.data
 				),
+			deleteItem: ({ data }) =>
+				axios.delete(
+					`${base_url}/${url}/${data.shoppinglist.toString()}/items/${data.item.toString()}`
+				),
 			getAllItems: ({ id }) =>
 				axios.get(`${base_url}/${url}/${id.toString()}/items`)
 		};

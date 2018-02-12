@@ -53,15 +53,15 @@ export const empty_shoppinglist = payload => {
 	};
 };
 
-export function deleteItem(id) {
+export function deleteItem(data) {
 	return dispatch => {
 		dispatch(request_loading("DELETE"));
 		Api.shoppinglists("shoppinglists")
-			.delete({ id })
+			.deleteItem({ data })
 			.then(response => {
 				dispatch(delete_item(response.data));
 				dispatch(request_finished());
-				dispatch(success(response.data));
+				dispatch(danger(response.data));
 				return dispatch(clear());
 			})
 			.catch(error => {
@@ -101,7 +101,6 @@ export function fetchAllItems(id) {
 		Api.shoppinglists("shoppinglists")
 			.getAllItems({ id })
 			.then(response => {
-				dispatch(getShoppinglist(id));
 				dispatch(get_all_items(response.data));
 				return dispatch(request_finished());
 			})

@@ -14,40 +14,40 @@ export default function ItemsReducer(state = initialState.items, action) {
     case REQUEST_LOADING:
       return {
         ...state,
-        processing: true
+        loading: true,
+        loaded: false
       };
 
     case UPDATE_ITEM:
       return {
         ...state,
-        processing: false,
-        processed: true,
-        payload: action.payload,
-        empty: false
+        loading: false,
+        loaded: true,
+        payload: action.payload
       };
 
     case DELETE_ITEM:
       return {
         ...state,
-        processing: false,
-        processed: true,
-        payload: action.payload,
-        empty: false
+        loading: false,
+        loaded: true,
+        payload: action.payload
       };
 
     case EMPTY_ITEMS:
       return {
         ...state,
-        processing: false,
-        processed: true,
+        loading: false,
+        loaded: false,
         empty: true,
+        items: [],
         payload: action.payload
       };
 
     case FETCH_MANY_ITEMS:
       return {
         ...state,
-        processing: false,
+        loading: false,
         items: action.items,
         empty: false
       };
@@ -55,8 +55,8 @@ export default function ItemsReducer(state = initialState.items, action) {
     case REQUEST_FINISHED:
       return {
         ...state,
-        processing: false,
-        processed: false,
+        loading: false,
+        loaded: false,
         empty: false
       };
 
