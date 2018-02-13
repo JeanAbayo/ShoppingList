@@ -45,7 +45,7 @@ class DashboardContainer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.processed) {
+    if (this.props.processed && !this.props.match.params.shoppinglistId) {
       this.props.fetchShoppinglists(this.state.page, this.state.per_page);
     }
   }
@@ -93,6 +93,7 @@ class DashboardContainer extends Component {
     this.setState({
       action: "edit"
     });
+    // To change get all the data here
     this.props.getShoppinglist(data);
     // this.props.editShoppinglist(data);
   };

@@ -60,7 +60,7 @@ export function deleteItem(data) {
 				dispatch(delete_item(response.data));
 				dispatch(request_finished());
 				dispatch(danger(response.data));
-				return dispatch(clear());
+				return dispatch(clear(null));
 			})
 			.catch(error => {
 				if (error.response) {
@@ -81,7 +81,7 @@ export function updateItem(item) {
 				dispatch(update_item(response.data));
 				dispatch(request_finished());
 				dispatch(success(response.data));
-				return dispatch(clear());
+				return dispatch(clear(null));
 			})
 			.catch(error => {
 				if (error.response) {

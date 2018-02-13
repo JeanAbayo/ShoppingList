@@ -67,12 +67,12 @@ class ShoppinglistContainer extends Component {
   }
 
   addItem = e => {
+    e.preventDefault();
     this.props.addItem({
       data: this.state.itemData,
       id: this.props.toCreate
     });
     this.handleCloseClick();
-    e.preventDefault();
   };
 
   updateShoppinglist = e => {
