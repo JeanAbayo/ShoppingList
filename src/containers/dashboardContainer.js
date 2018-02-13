@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Shoppinglist from "../components/shoppinglist";
 import Pagination from "../components/pagination";
-import { Search } from "../components/search";
 import ShoppinglistContainer from "./shoppinglistContainer";
 import ItemsContainer from "./itemsContainer";
+import SearchContainer from "./searchContainer";
 // Import Error notifier
 import Notifier from "../components/notifier";
 import Loader from "../components/loader";
@@ -99,18 +99,18 @@ class DashboardContainer extends Component {
   };
 
   render() {
-    let itemShoppinglist = this.props.shoppinglists[0].shoppinglists.filter(
-      shoppinglist =>
-        shoppinglist["id"] === this.props.match.params.shoppinglistId * 1
-    );
-    const { showModal } = this.state;
-    return (
-      <div className="container-fluid">
-        {this.props.processing ? <Loader /> : null}
-        {this.props.notify.type ? (
-          <Notifier message={this.props.notify} />
-        ) : null}
-        {this.props.shoppinglists.length > 0 ? (
+    if (this.props.shoppinglists.length > 0) {
+      const itemShoppinglist = this.props.shoppinglists[0].shoppinglists.filter(
+        shoppinglist =>
+          shoppinglist["id"] === this.props.match.params.shoppinglistId * 1
+      );
+      const { showModal } = this.state;
+      return (
+        <div className="container-fluid">
+          {this.props.processing ? <Loader /> : null}
+          {this.props.notify.type ? (
+            <Notifier message={this.props.notify} />
+          ) : null}
           <div className="row">
             <div className="col col-12 align-self-center">
               <div className="card sl_display_card">
@@ -119,7 +119,7 @@ class DashboardContainer extends Component {
                     <h2 className="card-header">Your Shopping Lists</h2>
                   </div>
                   <div className="col-4">
-                    <Search />
+                    <SearchContainer shoppinglist={itemShoppinglist} />
                     <Icon
                       icon="ios-create-outline"
                       fontSize="43px"
@@ -185,11 +185,11 @@ class DashboardContainer extends Component {
               </div>
             </div>
           </div>
-        ) : (
-          <Loader />
-        )}
-      </div>
-    );
+        </div>
+      );
+    } else {
+      return <Loader />;
+    }
   }
 }
 

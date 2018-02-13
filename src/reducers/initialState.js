@@ -25,5 +25,10 @@ export const initialState = {
 		payload: [],
 		items: [],
 		empty: false
+	},
+	search: {
+		searching: false,
+		results: [],
+		complete: false
 	}
 };
