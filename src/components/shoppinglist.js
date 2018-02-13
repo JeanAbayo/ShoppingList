@@ -29,7 +29,7 @@ class Shoppinglist extends Component {
   render() {
     return (
       <div>
-        {this.props.data.map(shoppinglist => (
+        {this.props.data[0].shoppinglists.map(shoppinglist => (
           <div className="list-group" key={shoppinglist.id}>
             <Link
               to={`/shoppinglists/${shoppinglist.id}`}
@@ -37,7 +37,7 @@ class Shoppinglist extends Component {
             >
               <div className="d-flex w-100 justify-content-between">
                 <h4 className="mb-1">{shoppinglist.title}</h4>
-                <small>{shoppinglist.date_created.slice(0, 16)}</small>
+                {/* <small>{shoppinglist.date_created.slice(0, 16)}</small>*/}
               </div>
               <p className="mb-1">{shoppinglist.description}</p>
               <div

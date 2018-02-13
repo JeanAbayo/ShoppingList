@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Shoppinglist from "../components/shoppinglist";
-import { Pagination } from "../components/pagination";
+import Pagination from "../components/pagination";
 import { Search } from "../components/search";
 import ShoppinglistContainer from "./shoppinglistContainer";
 import ItemsContainer from "./itemsContainer";
@@ -50,8 +50,8 @@ class DashboardContainer extends Component {
     }
   }
 
-  changePage = (page, per_page) => {
-    this.setState({ page, per_page });
+  changePage = page => {
+    this.props.fetchShoppinglists(page, this.state.per_page);
   };
 
   handleModalCloseClick = () => {
@@ -107,79 +107,88 @@ class DashboardContainer extends Component {
     return (
       <div className="container-fluid">
         {this.props.processing ? <Loader /> : null}
+
         {this.props.notify.type ? (
           <Notifier message={this.props.notify} />
         ) : null}
-        <div className="row">
-          <div className="col col-12 align-self-center">
-            <div className="card sl_display_card">
-              <div className="row">
-                <div className="col-8">
-                  <h2 className="card-header">Your Shopping Lists</h2>
-                </div>
-                <div className="col-4">
-                  <Search />
-                  <Icon
-                    icon="ios-create-outline"
-                    fontSize="43px"
-                    color="#fff"
-                    className="create_sl"
-                    onClick={this.onCreate}
-                  />
-                  <Icon
-                    icon="ios-search-outline"
-                    fontSize="43px"
-                    color="#fff"
-                    className="search_icon"
-                  />
-                  <Icon icon="ios-apps-outline" fontSize="43px" color="#fff" />
-                </div>
-                <div className="container">
-                  <div className="row">
-                    {showModal ? (
-                      <ShoppinglistContainer
-                        handleModalCloseClick={this.handleModalCloseClick}
-                        history={this.props.history}
-                        action={this.state.action}
-                        editData={this.props.payload}
-                        toCreate={this.state.toCreate}
-                      />
-                    ) : null}
+        {this.props.shoppinglists.length > 0 ? (
+          <div className="row">
+            <div className="col col-12 align-self-center">
+              <div className="card sl_display_card">
+                <div className="row">
+                  <div className="col-8">
+                    <h2 className="card-header">Your Shopping Lists</h2>
                   </div>
-                </div>
-              </div>
-              <div className="card-block">
-                {this.props.empty ? (
-                  <div className="list-group">
-                    <div className="d-flex w-100 justify-content-between">
-                      <h4>{this.props.payload.message}</h4>
+                  <div className="col-4">
+                    <Search />
+                    <Icon
+                      icon="ios-create-outline"
+                      fontSize="43px"
+                      color="#fff"
+                      className="create_sl"
+                      onClick={this.onCreate}
+                    />
+                    <Icon
+                      icon="ios-search-outline"
+                      fontSize="43px"
+                      color="#fff"
+                      className="search_icon"
+                    />
+                    <Icon
+                      icon="ios-apps-outline"
+                      fontSize="43px"
+                      color="#fff"
+                    />
+                  </div>
+                  <div className="container">
+                    <div className="row">
+                      {showModal ? (
+                        <ShoppinglistContainer
+                          handleModalCloseClick={this.handleModalCloseClick}
+                          history={this.props.history}
+                          action={this.state.action}
+                          editData={this.props.payload}
+                          toCreate={this.state.toCreate}
+                        />
+                      ) : null}
                     </div>
                   </div>
-                ) : (
-                  <div>
-                    {this.props.match.params.shoppinglistId ? (
-                      <ItemsContainer shoppinglist={itemShoppinglist} />
-                    ) : (
-                      <Shoppinglist
-                        data={this.props.shoppinglists}
-                        delete={this.onDelete}
-                        edit={this.onEdit}
-                        toAddOn={this.addItem}
-                        payload={this.props.payload}
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
-              <div className="row pagination_container">
-                <Pagination
-                  onPageChange={this.changePage}
-                  numberOfPages={this.state.page_number}
-                />
+                </div>
+                <div className="card-block">
+                  {this.props.empty ? (
+                    <div className="list-group">
+                      <div className="d-flex w-100 justify-content-between">
+                        <h4>{this.props.payload.message}</h4>
+                      </div>
+                    </div>
+                  ) : (
+                    <div>
+                      {this.props.match.params.shoppinglistId ? (
+                        <ItemsContainer shoppinglist={itemShoppinglist} />
+                      ) : (
+                        <Shoppinglist
+                          data={this.props.shoppinglists}
+                          delete={this.onDelete}
+                          edit={this.onEdit}
+                          toAddOn={this.addItem}
+                          payload={this.props.payload}
+                        />
+                      )}
+                    </div>
+                  )}
+                </div>
+                <div className="row pagination_container">
+                  <Pagination
+                    paginate={this.props.shoppinglists[1].pagination}
+                    onPageChange={this.changePage}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <Loader />
+        )}
       </div>
     );
   }
