@@ -37,7 +37,7 @@ class Shoppinglist extends Component {
             >
               <div className="d-flex w-100 justify-content-between">
                 <h4 className="mb-1">{shoppinglist.title}</h4>
-                {/* <small>{shoppinglist.date_created.slice(0, 16)}</small>*/}
+                <small>{shoppinglist.date_created.slice(0, 16)}</small>
               </div>
               <p className="mb-1">{shoppinglist.description}</p>
               <div

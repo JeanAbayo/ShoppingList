@@ -186,7 +186,6 @@ export function addItem(item) {
 		Api.shoppinglists("shoppinglists")
 			.createItem({ item })
 			.then(response => {
-				console.log(response.data);
 				dispatch(create_item(response.data));
 				dispatch(request_finished());
 				dispatch(success(response.data));

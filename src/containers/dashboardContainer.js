@@ -99,7 +99,7 @@ class DashboardContainer extends Component {
   };
 
   render() {
-    let itemShoppinglist = this.props.shoppinglists.filter(
+    let itemShoppinglist = this.props.shoppinglists[0].shoppinglists.filter(
       shoppinglist =>
         shoppinglist["id"] === this.props.match.params.shoppinglistId * 1
     );
@@ -107,7 +107,6 @@ class DashboardContainer extends Component {
     return (
       <div className="container-fluid">
         {this.props.processing ? <Loader /> : null}
-
         {this.props.notify.type ? (
           <Notifier message={this.props.notify} />
         ) : null}

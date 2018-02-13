@@ -6,7 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ConnectedRouter as Router } from "react-router-redux";
 import configureStore from "./instance/configureStore";
-import { PersistGate } from "redux-persist/es/integration/react";
+import { PersistGate } from "redux-persist/lib/integration/react";
 
 // Import primary components
 import Explore from "./components/explore";
