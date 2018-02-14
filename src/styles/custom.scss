@@ -305,4 +305,9 @@ button.close-0-32.close {
 .ReactModal__Content {
 	border: unset !important;
 	background: unset !important;
+	top: 30% !important;
+	width: 100%;
+}
+.ReactModal__Overlay {
+	background-color: rgba(0, 0, 0, 0.75) !important;
 }
