@@ -6,6 +6,7 @@ import ShoppinglistReducer from "./shoppinglistReducer";
 import { routerReducer } from "react-router-redux";
 import ItemsReducer from "./itemsReducer";
 import SearchReducer from "./searchReducer";
+import ProfileReducer from "./profileReducer";
 
 export default combineReducers({
 	register: RegisterReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
 	routing: routerReducer,
 	shoppinglist: ShoppinglistReducer,
 	items: ItemsReducer,
-	search: SearchReducer
+	search: SearchReducer,
+	profile: ProfileReducer
 });

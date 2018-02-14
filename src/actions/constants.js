@@ -9,6 +9,10 @@ export const LOGIN_FAILS = "LOGIN_FAILS";
 export const LOGIN_SUCCEEDS = "LOGIN_SUCCEEDS";
 // Logout constant
 export const LOGOUT = "LOGOUT";
+// User profile constants
+export const LOAD_PROFILE = "LOAD_PROFILE";
+export const GET_PROFILE = "GET_PROFILE";
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
 // Notifier constants
 export const SUCCESS = "SUCCESS";
 export const ERROR = "ERROR";

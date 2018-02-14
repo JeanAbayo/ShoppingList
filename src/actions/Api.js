@@ -52,6 +52,12 @@ export default {
 				axios.get(`${base_url}/${url}`, { params: { q } })
 		};
 	},
+	profile(url) {
+		return {
+			getProfile: () => axios.get(`${base_url}/${url}`),
+			updateProfile: ({ data }) => axios.put(`${base_url}/${url}`)
+		};
+	},
 	logout(url) {
 		return {
 			Logout: () => axios.post(`${base_url}/${url}`)

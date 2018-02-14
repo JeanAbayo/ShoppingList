@@ -14,6 +14,7 @@ import Home from "./components/home";
 import Login from "./components/login";
 import Profile from "./components/profile";
 import DashboardContainer from "./containers/dashboardContainer";
+import ProfileContainer from "./containers/profileContainer";
 
 // import secondary components
 import Navbar from "./components/helpers/navbar";
@@ -38,7 +39,10 @@ class App extends Component {
                   <Route exact path="/explore" component={Explore} />
                   <Route path="/signup" component={Home} />
                   <Route path="/login" component={Login} />
-                  <ProtectedRoute path="/profile" component={Profile} />
+                  <ProtectedRoute
+                    path="/profile"
+                    component={ProfileContainer}
+                  />
                   <ProtectedRoute
                     path="/dashboard"
                     component={DashboardContainer}

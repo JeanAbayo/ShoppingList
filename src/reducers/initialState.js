@@ -30,5 +30,10 @@ export const initialState = {
 		searching: false,
 		results: [],
 		complete: false
+	},
+	profile: {
+		loading_info: false,
+		payload: [],
+		loaded: false
 	}
 };
