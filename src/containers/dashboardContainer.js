@@ -98,6 +98,12 @@ class DashboardContainer extends Component {
     // this.props.editShoppinglist(data);
   };
 
+  searchResults = results => {
+    this.setState({
+      results
+    });
+  };
+
   render() {
     if (this.props.shoppinglists.length > 0) {
       const itemShoppinglist = this.props.shoppinglists[0].shoppinglists.filter(
@@ -119,7 +125,10 @@ class DashboardContainer extends Component {
                     <h2 className="card-header">Your Shopping Lists</h2>
                   </div>
                   <div className="col-4">
-                    <SearchContainer shoppinglist={itemShoppinglist} />
+                    <SearchContainer
+                      shoppinglist={itemShoppinglist}
+                      data={this.searchResults}
+                    />
                     <Icon
                       icon="ios-create-outline"
                       fontSize="43px"
@@ -167,6 +176,7 @@ class DashboardContainer extends Component {
                       ) : (
                         <Shoppinglist
                           data={this.props.shoppinglists}
+                          results={this.state.results}
                           delete={this.onDelete}
                           edit={this.onEdit}
                           toAddOn={this.addItem}

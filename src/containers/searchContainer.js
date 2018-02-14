@@ -1,26 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Search } from "../components/search";
+import Search from "../components/search";
 
 import { search } from "../actions/SearchActions";
 
 class SearchContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  handleInputChange(event) {
-    const value = event.target.value;
-    this.props.search(value);
-  }
+  doSearch = q => {
+    if (q.length > 0) {
+      this.props.search(q);
+    }
+    this.props.data(this.props.results);
+  };
 
   render() {
-    return (
-      <div className="searchBar">
-        <Search />
-      </div>
-    );
+    return <Search searchq={this.doSearch} />;
   }
 }
 

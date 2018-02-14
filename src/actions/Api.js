@@ -47,7 +47,9 @@ export default {
 					`${base_url}/${url}/${data.shoppinglist.toString()}/items/${data.item.toString()}`
 				),
 			getAllItems: ({ id }) =>
-				axios.get(`${base_url}/${url}/${id.toString()}/items`)
+				axios.get(`${base_url}/${url}/${id.toString()}/items`),
+			search: ({ q }) =>
+				axios.get(`${base_url}/${url}`, { params: { q } })
 		};
 	},
 	logout(url) {

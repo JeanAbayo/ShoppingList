@@ -27,9 +27,19 @@ class Shoppinglist extends Component {
   };
 
   render() {
+    let content = this.props.data[0].shoppinglists;
+    if (this.props.results) {
+      if (this.props.results["status"] === "fail") {
+        content = this.props.data[0].shoppinglists;
+      } else if (this.props.results["search_results"]) {
+        content = this.props.results["search_results"];
+      } else {
+        content = this.props.data[0].shoppinglists;
+      }
+    }
     return (
       <div>
-        {this.props.data[0].shoppinglists.map(shoppinglist => (
+        {content.map(shoppinglist => (
           <div className="list-group" key={shoppinglist.id}>
             <Link
               to={`/shoppinglists/${shoppinglist.id}`}
