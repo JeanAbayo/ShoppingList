@@ -17,20 +17,48 @@ class Profile extends Component {
     super();
 
     this.state = {
-      modalIsOpen: false
+      modalIsOpen: false,
+      profileUpdate: {
+        new_username: "",
+        new_email: "",
+        password: ""
+      }
     };
 
     this.openModal = this.showUpdateModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   showUpdateModal = () => {
-    this.setState({ modalIsOpen: true });
+    this.setState({
+      modalIsOpen: true,
+      profileUpdate: {
+        ...this.state.profileUpdate,
+        new_username: this.props.user.username,
+        new_email: this.props.user.email
+      }
+    });
   };
 
   closeModal() {
     this.setState({ modalIsOpen: false });
   }
+
+  handleInputChange = event => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      profileUpdate: { ...this.state.profileUpdate, [name]: value }
+    });
+  };
+
+  updateUserInfo = event => {
+    event.preventDefault();
+    this.props.update(this.state.profileUpdate);
+  };
+
   render() {
     return (
       <div className="container-fluid">
@@ -43,7 +71,7 @@ class Profile extends Component {
                 <p>Email: {this.props.user.email}</p>
                 <button
                   type="button"
-                  class="btn btn-outline-primary"
+                  className="btn btn-outline-primary"
                   onClick={this.showUpdateModal}
                 >
                   Update user info
@@ -54,6 +82,7 @@ class Profile extends Component {
                   onRequestClose={this.closeModal}
                   style={customStyles}
                   contentLabel="Example Modal"
+                  ariaHideApp={false}
                 >
                   <div className="show_create_sl">
                     <div className="modal-dialog" role="document">
@@ -80,11 +109,11 @@ class Profile extends Component {
                             <div className="form-group">
                               <input
                                 className="form-control"
-                                placeholder="Username"
+                                placeholder="Profile name"
                                 type="text"
-                                name="username"
+                                name="new_username"
                                 minLength="6"
-                                value={this.props.user.username}
+                                value={this.state.profileUpdate.new_username}
                                 onChange={this.handleInputChange}
                                 required
                               />
@@ -94,8 +123,19 @@ class Profile extends Component {
                                 className="form-control"
                                 placeholder="User email"
                                 type="email"
-                                name="email"
-                                value={this.props.user.email}
+                                name="new_email"
+                                value={this.state.profileUpdate.new_email}
+                                minLength="6"
+                                onChange={this.handleInputChange}
+                                required
+                              />
+                            </div>
+                            <div className="form-group">
+                              <input
+                                className="form-control"
+                                placeholder="Password"
+                                type="password"
+                                name="password"
                                 minLength="6"
                                 onChange={this.handleInputChange}
                                 required

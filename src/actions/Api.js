@@ -55,7 +55,7 @@ export default {
 	profile(url) {
 		return {
 			getProfile: () => axios.get(`${base_url}/${url}`),
-			updateProfile: ({ data }) => axios.put(`${base_url}/${url}`)
+			updateProfile: ({ data }) => axios.put(`${base_url}/${url}`, data)
 		};
 	},
 	logout(url) {

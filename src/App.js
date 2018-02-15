@@ -12,7 +12,6 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 import Explore from "./components/explore";
 import Home from "./components/home";
 import Login from "./components/login";
-import Profile from "./components/profile";
 import DashboardContainer from "./containers/dashboardContainer";
 import ProfileContainer from "./containers/profileContainer";
 

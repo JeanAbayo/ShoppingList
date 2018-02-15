@@ -34,6 +34,7 @@ export const initialState = {
 	profile: {
 		loading_info: false,
 		payload: [],
+		user: [],
 		loaded: false
 	}
 };

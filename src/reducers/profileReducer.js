@@ -2,7 +2,9 @@ import { initialState } from "./initialState";
 import {
   GET_PROFILE,
   UPDATE_PROFILE,
-  LOAD_PROFILE
+  LOAD_PROFILE,
+  REQUEST_FINISHED,
+  ERROR
 } from "../actions/constants";
 
 export default function ProfileReducer(state = initialState.profile, action) {
@@ -16,11 +18,10 @@ export default function ProfileReducer(state = initialState.profile, action) {
       };
 
     case GET_PROFILE:
-      console.log("this was dispatched");
       return {
         ...state,
         loading_info: false,
-        payload: action.payload,
+        user: action.payload,
         loaded: true
       };
 
@@ -28,8 +29,22 @@ export default function ProfileReducer(state = initialState.profile, action) {
       return {
         ...state,
         loading_info: false,
-        payload: action.payload,
+        user: action.payload,
         loaded: true
+      };
+
+    case REQUEST_FINISHED:
+      return {
+        ...state,
+        loading_info: false,
+        payload: [],
+        loaded: false
+      };
+    case ERROR:
+      return {
+        ...state,
+        loading_info: false,
+        payload: action.payload
       };
     default:
       return state;

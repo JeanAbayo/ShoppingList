@@ -7,8 +7,6 @@ import Profile from "../components/profile";
 
 import { getUserProfile, updateUserProfile } from "../actions/ProfileActions";
 
-import * as Icon from "react-ionicons";
-
 class ProfileContainer extends Component {
   constructor(props) {
     super(props);
@@ -18,27 +16,43 @@ class ProfileContainer extends Component {
     this.props.getUserProfile();
   }
 
+  updateProfile = data => {
+    this.props.updateUserProfile(data);
+  };
+
   render() {
     return (
       <div className="container-fluid">
-        {this.props.loading_info ? <Loader /> : null}
         {this.props.notify.type ? (
           <Notifier message={this.props.notify} />
         ) : null}
-        {this.props.loaded ? <Profile user={this.props.payload} /> : <Loader />}
+        {this.props.loading_info ? (
+          <Loader />
+        ) : (
+          <div>
+            {this.props.loaded ? (
+              <Profile user={this.props.user} update={this.updateProfile} />
+            ) : (
+              <div>
+                <Profile user={this.props.user} update={this.updateProfile} />
+              </div>
+            )}
+          </div>
+        )}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  const { loading_info, payload, loaded } = state.profile;
+  const { loading_info, payload, loaded, user } = state.profile;
   const { notify } = state;
   return {
     loading_info,
     payload,
     loaded,
-    notify
+    notify,
+    user
   };
 }
 
