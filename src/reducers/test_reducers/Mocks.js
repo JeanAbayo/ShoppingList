@@ -71,5 +71,32 @@ export default {
 				email: "johndoe@test.com"
 			})
 		};
+	},
+	notify() {
+		return {
+			initialState: () => ({
+				loaded: false,
+				loading_info: false,
+				payload: [],
+				user: []
+			}),
+			data: () => ({
+				username: "John Doe",
+				email: "johndoe@test.com"
+			})
+		};
+	},
+	search() {
+		return {
+			initialState: () => ({
+				complete: false,
+				results: [],
+				searching: false
+			}),
+			data: () => ({
+				title: "Carrots",
+				description: "Potatoes"
+			})
+		};
 	}
 };
