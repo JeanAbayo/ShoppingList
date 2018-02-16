@@ -78,7 +78,7 @@ export const request_finished = type => {
 export function fetchShoppinglists(page, per_page) {
 	return dispatch => {
 		dispatch(request_loading("FETCH"));
-		Api.shoppinglists("shoppinglists")
+		return Api.shoppinglists("shoppinglists")
 			.getAll({ page, per_page })
 			.then(response => {
 				if (response.data.message) {
