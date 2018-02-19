@@ -5,6 +5,7 @@ import Pagination from "../components/pagination";
 import ShoppinglistContainer from "./shoppinglistContainer";
 import ItemsContainer from "./itemsContainer";
 import SearchContainer from "./searchContainer";
+import SearchResults from "../components/searchResults";
 // Import Error notifier
 import Notifier from "../components/notifier";
 import Loader from "../components/loader";
@@ -34,7 +35,8 @@ class DashboardContainer extends Component {
       toEdit: "",
       page: 1,
       per_page: 5,
-      page_number: null
+      page_number: null,
+      resultsDisplay: false
     };
   }
 
@@ -103,6 +105,20 @@ class DashboardContainer extends Component {
     });
   };
 
+  displaySearchResults = () => {
+    this.setState({
+      resultsDisplay: true
+    });
+  };
+
+  hideResultsDisplay = () => {
+    setTimeout(() => {
+      this.setState({
+        resultsDisplay: false
+      });
+    }, 1000);
+  };
+
   render() {
     if (this.props.shoppinglists.length > 0) {
       const itemShoppinglist = this.props.shoppinglists[0].shoppinglists.filter(
@@ -127,6 +143,8 @@ class DashboardContainer extends Component {
                     <SearchContainer
                       shoppinglist={itemShoppinglist}
                       data={this.searchResults}
+                      triggerSearch={this.displaySearchResults}
+                      hideSearch={this.hideResultsDisplay}
                     />
                     <Icon
                       icon="ios-create-outline"
@@ -162,6 +180,10 @@ class DashboardContainer extends Component {
                   </div>
                 </div>
                 <div className="card-block">
+                  <SearchResults
+                    display={this.state.resultsDisplay}
+                    results={this.state.results}
+                  />
                   {this.props.empty ? (
                     <div className="list-group">
                       <div className="d-flex w-100 justify-content-between">
@@ -175,7 +197,6 @@ class DashboardContainer extends Component {
                       ) : (
                         <Shoppinglist
                           data={this.props.shoppinglists}
-                          results={this.state.results}
                           delete={this.onDelete}
                           edit={this.onEdit}
                           toAddOn={this.addItem}

@@ -32,16 +32,7 @@ class Shoppinglist extends Component {
   };
 
   render() {
-    let content = this.props.data[0].shoppinglists;
-    if (this.props.results) {
-      if (this.props.results["status"] === "fail") {
-        content = this.props.data[0].shoppinglists;
-      } else if (this.props.results["search_results"]) {
-        content = this.props.results["search_results"];
-      } else {
-        content = this.props.data[0].shoppinglists;
-      }
-    }
+    const content = this.props.data[0].shoppinglists;
     return (
       <div>
         {content.map(shoppinglist => (

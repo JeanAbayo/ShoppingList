@@ -15,6 +15,8 @@ class Search extends Component {
 						placeholder="Search ..."
 						id="example-search-input"
 						name="search"
+						onBlur={this.props.deepHideSearch}
+						onClick={this.props.deepTriggerSearch}
 						onChange={this.searchQuery}
 					/>
 				</div>

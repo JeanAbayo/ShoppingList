@@ -300,3 +300,12 @@ button.close-0-32.close {
 
 .ReactModal__Overlay {
   background-color: rgba(0, 0, 0, 0.75) !important; }
+
+.display_results {
+  position: absolute;
+  right: 20%;
+  z-index: 1;
+  margin-top: -0.5em;
+  width: 18%;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.12); }

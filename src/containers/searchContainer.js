@@ -13,7 +13,13 @@ class SearchContainer extends Component {
   };
 
   render() {
-    return <Search searchq={this.doSearch} />;
+    return (
+      <Search
+        searchq={this.doSearch}
+        deepTriggerSearch={this.props.triggerSearch}
+        deepHideSearch={this.hideSearch}
+      />
+    );
   }
 }
 
