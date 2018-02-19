@@ -4,15 +4,15 @@ import { ToastContainer, toast } from "react-toastify";
 class Notifier extends Component {
 	toastId = null;
 
-	componentDidUpdate() {
-		if (this.props.message.data) {
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.message.data) {
 			if (!toast.isActive(this.toastId)) {
-				const errorType = this.props.message.type;
-				const { message } = this.props.message.data;
+				const errorType = nextProps.message.type;
+				const { message } = nextProps.message.data;
 				let errorMessage = "";
 				Array.isArray(message)
 					? (errorMessage = message.toString())
-					: (errorMessage = this.props.message.data.message);
+					: (errorMessage = nextProps.message.data.message);
 				this.toastId = toast(errorMessage, {
 					autoClose: 5000,
 					closeButton: null, // Use Autoclose button
