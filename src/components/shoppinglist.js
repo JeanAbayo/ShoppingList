@@ -15,7 +15,8 @@ class Shoppinglist extends Component {
 
     const toEdit = {
       title: event.currentTarget.dataset.title,
-      description: event.currentTarget.dataset.description
+      description: event.currentTarget.dataset.description,
+      id: event.currentTarget.dataset.id
     };
     this.props.edit(toEdit);
   };
@@ -69,6 +70,7 @@ class Shoppinglist extends Component {
                     className="btn btn-primary"
                     data-title={shoppinglist.title}
                     data-description={shoppinglist.description}
+                    data-id={shoppinglist.id}
                     onClick={this.editShoppinglist}
                   >
                     <Icon
