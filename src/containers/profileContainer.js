@@ -8,9 +8,6 @@ import Profile from "../components/profile";
 import { getUserProfile, updateUserProfile } from "../actions/ProfileActions";
 
 class ProfileContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     this.props.getUserProfile();
