@@ -31,6 +31,7 @@ class DashboardContainer extends Component {
       showModal: false,
       action: null,
       toCreate: "",
+      toEdit: "",
       page: 1,
       per_page: 5,
       page_number: null
@@ -91,11 +92,9 @@ class DashboardContainer extends Component {
   onEdit = data => {
     this.handleModalShowClick();
     this.setState({
-      action: "edit"
+      action: "edit",
+      toEdit: data
     });
-    // To change get all the data here
-    this.props.getShoppinglist(data);
-    // this.props.editShoppinglist(data);
   };
 
   searchResults = results => {
@@ -155,7 +154,7 @@ class DashboardContainer extends Component {
                           handleModalCloseClick={this.handleModalCloseClick}
                           history={this.props.history}
                           action={this.state.action}
-                          editData={this.props.payload}
+                          editData={this.state.toEdit}
                           toCreate={this.state.toCreate}
                         />
                       ) : null}

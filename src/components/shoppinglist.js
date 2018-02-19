@@ -12,7 +12,11 @@ class Shoppinglist extends Component {
   }
   editShoppinglist = event => {
     event.preventDefault();
-    const toEdit = event.currentTarget.dataset.id;
+
+    const toEdit = {
+      title: event.currentTarget.dataset.title,
+      description: event.currentTarget.dataset.description
+    };
     this.props.edit(toEdit);
   };
   deleteShoppinglist = event => {
@@ -63,11 +67,12 @@ class Shoppinglist extends Component {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    data-id={shoppinglist.id}
+                    data-title={shoppinglist.title}
+                    data-description={shoppinglist.description}
                     onClick={this.editShoppinglist}
                   >
                     <Icon
-                      icon="ios-clipboard-outline"
+                      icon="ios-create-outline"
                       fontSize="23px"
                       color="#fff"
                     />
