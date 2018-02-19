@@ -37,7 +37,7 @@ export function logged_out(payload) {
 export function login(userData) {
 	return dispatch => {
 		dispatch(logingIn());
-		axios
+		return axios
 			.post(url + "/auth/login", userData)
 			.then(response => {
 				localStorage.setItem("token", response.data.token);
