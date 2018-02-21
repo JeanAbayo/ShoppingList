@@ -172,11 +172,6 @@ class DashboardContainer extends Component {
                       color="#fff"
                       className="search_icon"
                     />
-                    <Icon
-                      icon="ios-apps-outline"
-                      fontSize="43px"
-                      color="#fff"
-                    />
                   </div>
                   <div className="container">
                     <div className="row">

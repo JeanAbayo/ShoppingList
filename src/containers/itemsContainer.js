@@ -92,6 +92,11 @@ class ItemsContainer extends Component {
     });
   };
 
+  changePage = page => {
+    const id = this.id * 1;
+    this.props.fetchAllItems(id, page, this.state.per_page);
+  };
+
   onEdit = item => {
     const data = JSON.parse(item);
     this.setState({
@@ -209,17 +214,11 @@ class ItemsContainer extends Component {
               <div className="row justify-content-end">
                 <div className="col-4">
                   <SearchContainer
-                    // shoppinglist={itemShoppinglist}
+                    items={this.props.items}
+                    page={this.id}
                     data={this.searchResults}
                     triggerSearch={this.displaySearchResults}
                     hideSearch={this.hideResultsDisplay}
-                  />
-                  <Icon
-                    icon="ios-create-outline"
-                    fontSize="43px"
-                    color="#fff"
-                    className="create_sl"
-                    onClick={this.onCreate}
                   />
                   <Icon
                     icon="ios-search-outline"
@@ -227,7 +226,6 @@ class ItemsContainer extends Component {
                     color="#fff"
                     className="search_icon"
                   />
-                  <Icon icon="ios-apps-outline" fontSize="43px" color="#fff" />
                 </div>
               </div>
               <div className="card-block items-block">
