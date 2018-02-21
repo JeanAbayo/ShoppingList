@@ -81,7 +81,7 @@ export function updateItem(item) {
 				dispatch(update_item(response.data));
 				dispatch(request_finished());
 				dispatch(success(response.data));
-				return dispatch(clear(null));
+				return dispatch(clear());
 			})
 			.catch(error => {
 				if (error.response) {
@@ -93,11 +93,11 @@ export function updateItem(item) {
 	};
 }
 
-export function fetchAllItems(id) {
+export function fetchAllItems(id, page, per_page) {
 	return dispatch => {
 		dispatch(request_loading("GET_ALL_ITEMS"));
 		Api.shoppinglists("shoppinglists")
-			.getAllItems({ id })
+			.getAllItems({ id, page, per_page })
 			.then(response => {
 				dispatch(get_all_items(response.data));
 				return dispatch(request_finished());
@@ -105,7 +105,9 @@ export function fetchAllItems(id) {
 			.catch(error => {
 				if (error.response) {
 					if (error.response.status === 400) {
-						return dispatch(empty_shoppinglist(error.data));
+						return dispatch(
+							empty_shoppinglist(error.response.data)
+						);
 					}
 					dispatch(request_finished());
 					dispatch(danger(error.response.data));

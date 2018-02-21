@@ -17,7 +17,7 @@ class SearchContainer extends Component {
       <Search
         searchq={this.doSearch}
         deepTriggerSearch={this.props.triggerSearch}
-        deepHideSearch={this.hideSearch}
+        deepHideSearch={this.props.hideSearch}
       />
     );
   }

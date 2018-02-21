@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import * as Icon from "react-ionicons";
+import Loader from "../components/loader";
 
 class Items extends Component {
   editItem = event => {
@@ -16,59 +17,60 @@ class Items extends Component {
   };
 
   render() {
-    const items = this.props.data;
-    if (items.length === 0) {
-      return <h2>No items found for now</h2>;
-    }
-    return items.map(item => (
-      <div className="list-group" key={item.item_id}>
-        <div className="list-group-item list-group-item-action flex-column align-items-start">
-          <div className="d-flex w-100 justify-content-between">
-            <h4 className="mb-1">{item.item_title}</h4>
-            <small>{item.date_created.slice(0, 16)}</small>
-          </div>
-          <p className="mb-1">{item.item_description}</p>
-          <div
-            className="btn-toolbar"
-            role="toolbar"
-            aria-label="Toolbar with button groups"
-          >
-            <div
-              className="btn-group mr-3"
-              role="group"
-              aria-label="First group"
-            >
-              <button
-                type="button"
-                className="btn btn-primary"
-                data-item={JSON.stringify(item)}
-                onClick={this.editItem}
-              >
-                <Icon
-                  icon="ios-clipboard-outline"
-                  fontSize="23px"
-                  color="#fff"
-                />
-              </button>
+    if (this.props.data.length > 0) {
+      const items = this.props.data[0].items;
+      return items.map(item => (
+        <div className="list-group" key={item.item_id}>
+          <div className="list-group-item list-group-item-action flex-column align-items-start">
+            <div className="d-flex w-100 justify-content-between">
+              <h4 className="mb-1">{item.item_title}</h4>
+              <small>{item.date_created.slice(0, 16)}</small>
             </div>
+            <p className="mb-1">{item.item_description}</p>
             <div
-              className="btn-group mr-3"
-              role="group"
-              aria-label="Second group"
+              className="btn-toolbar"
+              role="toolbar"
+              aria-label="Toolbar with button groups"
             >
-              <button
-                type="button"
-                className="btn btn-danger"
-                data-id={item.item_id}
-                onClick={this.deleteItem}
+              <div
+                className="btn-group mr-3"
+                role="group"
+                aria-label="First group"
               >
-                <Icon icon="ios-trash-outline" fontSize="23px" color="#fff" />
-              </button>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  data-item={JSON.stringify(item)}
+                  onClick={this.editItem}
+                >
+                  <Icon
+                    icon="ios-clipboard-outline"
+                    fontSize="23px"
+                    color="#fff"
+                  />
+                </button>
+              </div>
+              <div
+                className="btn-group mr-3"
+                role="group"
+                aria-label="Second group"
+              >
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-id={item.item_id}
+                  onClick={this.deleteItem}
+                >
+                  <Icon icon="ios-trash-outline" fontSize="23px" color="#fff" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    ));
+      ));
+    } else {
+      return <Loader />;
+    }
   }
 }
 

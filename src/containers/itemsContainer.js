@@ -5,8 +5,13 @@ import Items from "../components/items";
 import Notifier from "../components/notifier";
 import Loader from "../components/loader";
 import Modal from "react-modal";
+import Pagination from "../components/pagination";
+import * as Icon from "react-ionicons";
 
 import { updateItem, deleteItem, fetchAllItems } from "../actions/ItemsActions";
+import { getShoppinglist } from "../actions/ShoppingListsActions";
+import SearchContainer from "./searchContainer";
+import SearchResults from "../components/searchResults";
 
 const customStyles = {
   content: {
@@ -22,6 +27,7 @@ const customStyles = {
 class ItemsContainer extends Component {
   constructor(props) {
     super(props);
+    this.id = this.props.match.params.shoppinglistId;
     this.state = {
       modalIsOpen: false,
       action: null,
@@ -49,12 +55,15 @@ class ItemsContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchAllItems(this.props.shoppinglist[0].id);
+    const id = this.id * 1;
+    this.props.getShoppinglist(id);
+    this.props.fetchAllItems(id, this.state.page, this.state.per_page);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
+    const id = this.id * 1;
     if (this.props.loaded) {
-      this.props.fetchAllItems(this.props.shoppinglist[0].id);
+      this.props.fetchAllItems(id, this.state.page, this.state.per_page);
     }
   }
 
@@ -70,7 +79,7 @@ class ItemsContainer extends Component {
   updateItem = item => {
     this.closeModal();
     this.props.updateItem({
-      shoppinglist: this.props.shoppinglist[0].id,
+      shoppinglist: this.id * 1,
       item: this.state.item,
       data: this.state.itemData
     });
@@ -78,7 +87,7 @@ class ItemsContainer extends Component {
 
   onDelete = item => {
     this.props.deleteItem({
-      shoppinglist: this.props.shoppinglist[0].id,
+      shoppinglist: this.id * 1,
       item
     });
   };
@@ -97,10 +106,10 @@ class ItemsContainer extends Component {
   };
 
   render() {
-    const shoppinglist = this.props.shoppinglist[0];
+    const shoppinglist = this.props.shoppinglist;
     return (
       <div className="container-fluid">
-        {this.props.loading ? <Loader /> : null}
+        {this.props.processing ? <Loader /> : null}
         {this.props.notify.type ? (
           <Notifier message={this.props.notify} />
         ) : null}
@@ -109,13 +118,125 @@ class ItemsContainer extends Component {
             <div className="card sl_display_card">
               <div className="row">
                 <div className="col-8">
-                  <h2 className="card-header">{shoppinglist.title}</h2>
-                  <h5 className="card-header">{shoppinglist.description}</h5>
+                  {shoppinglist ? (
+                    <div>
+                      <h2 className="card-header">{shoppinglist.title}</h2>
+                      <h5 className="card-header">
+                        {shoppinglist.description}
+                      </h5>
+                    </div>
+                  ) : (
+                    <Loader />
+                  )}
+                </div>
+                <Modal
+                  isOpen={this.state.modalIsOpen}
+                  onAfterOpen={this.afterOpenModal}
+                  onRequestClose={this.closeModal}
+                  style={customStyles}
+                  contentLabel="Example Modal"
+                  ariaHideApp={false}
+                  tabIndex="0"
+                >
+                  <div className="show_create_sl">
+                    {this.props.processing ? <Loader /> : null}
+                    <div>
+                      <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title" id="exampleModalLabel">
+                              Add an item on your shoppinglist
+                            </h5>
+                            <button
+                              type="button"
+                              className="close"
+                              data-dismiss="modal"
+                              aria-label="Close"
+                              onClick={this.closeModal}
+                            >
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <form
+                            className="form-horizontal"
+                            onSubmit={this.updateItem}
+                          >
+                            <div className="modal-body">
+                              <div className="form-group">
+                                <input
+                                  className="form-control"
+                                  placeholder="Item title"
+                                  type="text"
+                                  name="item_title"
+                                  minLength="6"
+                                  value={this.state.itemData.item_title}
+                                  onChange={this.handleInputChange}
+                                  required
+                                />
+                              </div>
+                              <div className="form-group">
+                                <textarea
+                                  className="form-control"
+                                  placeholder="Item description"
+                                  type="description"
+                                  name="item_description"
+                                  value={this.state.itemData.item_description}
+                                  minLength="6"
+                                  onChange={this.handleInputChange}
+                                  required
+                                />
+                              </div>
+                            </div>
+                            <div className="modal-footer">
+                              <button type="submit" className="btn btn-primary">
+                                Save
+                              </button>
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={this.closeModal}
+                              >
+                                Close
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Modal>
+              </div>
+              <div className="row justify-content-end">
+                <div className="col-4">
+                  <SearchContainer
+                    // shoppinglist={itemShoppinglist}
+                    data={this.searchResults}
+                    triggerSearch={this.displaySearchResults}
+                    hideSearch={this.hideResultsDisplay}
+                  />
+                  <Icon
+                    icon="ios-create-outline"
+                    fontSize="43px"
+                    color="#fff"
+                    className="create_sl"
+                    onClick={this.onCreate}
+                  />
+                  <Icon
+                    icon="ios-search-outline"
+                    fontSize="43px"
+                    color="#fff"
+                    className="search_icon"
+                  />
+                  <Icon icon="ios-apps-outline" fontSize="43px" color="#fff" />
                 </div>
               </div>
               <div className="card-block items-block">
                 {this.props.empty ? (
-                  <h2>No items found for now</h2>
+                  <div className="list-group">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h4>{this.props.payload.message}</h4>
+                    </div>
+                  </div>
                 ) : (
                   <Items
                     data={this.props.items}
@@ -124,82 +245,14 @@ class ItemsContainer extends Component {
                   />
                 )}
               </div>
-              <Modal
-                isOpen={this.state.modalIsOpen}
-                onAfterOpen={this.afterOpenModal}
-                onRequestClose={this.closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-                ariaHideApp={false}
-                tabIndex="0"
-              >
-                <div className="show_create_sl">
-                  {this.props.processing ? <Loader /> : null}
-                  <div>
-                    <div className="modal-dialog" role="document">
-                      <div className="modal-content">
-                        <div className="modal-header">
-                          <h5 className="modal-title" id="exampleModalLabel">
-                            Add an item on your shoppinglist
-                          </h5>
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                            onClick={this.closeModal}
-                          >
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <form
-                          className="form-horizontal"
-                          onSubmit={this.updateItem}
-                        >
-                          <div className="modal-body">
-                            <div className="form-group">
-                              <input
-                                className="form-control"
-                                placeholder="Item title"
-                                type="text"
-                                name="item_title"
-                                minLength="6"
-                                value={this.state.itemData.item_title}
-                                onChange={this.handleInputChange}
-                                required
-                              />
-                            </div>
-                            <div className="form-group">
-                              <textarea
-                                className="form-control"
-                                placeholder="Item description"
-                                type="description"
-                                name="item_description"
-                                value={this.state.itemData.item_description}
-                                minLength="6"
-                                onChange={this.handleInputChange}
-                                required
-                              />
-                            </div>
-                          </div>
-                          <div className="modal-footer">
-                            <button type="submit" className="btn btn-primary">
-                              Save
-                            </button>
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              onClick={this.closeModal}
-                            >
-                              Close
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </Modal>
+              <div className="row pagination_container">
+                {this.props.items[1] ? (
+                  <Pagination
+                    paginate={this.props.items[1].pagination}
+                    onPageChange={this.changePage}
+                  />
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
@@ -211,11 +264,13 @@ class ItemsContainer extends Component {
 function mapStateToProps(state) {
   const { error, isAuthenticated } = state.login;
   const { loaded, payload, loading, empty, items } = state.items;
+  const { shoppinglist } = state.shoppinglist;
   const { notify } = state;
   return {
     error,
     payload,
     items,
+    shoppinglist,
     notify,
     empty,
     loaded,
@@ -227,5 +282,6 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   updateItem,
   deleteItem,
-  fetchAllItems
+  fetchAllItems,
+  getShoppinglist
 })(ItemsContainer);

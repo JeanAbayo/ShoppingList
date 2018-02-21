@@ -13,6 +13,7 @@ import Explore from "./components/explore";
 import Home from "./components/home";
 import Login from "./components/login";
 import DashboardContainer from "./containers/dashboardContainer";
+import ItemsContainer from "./containers/itemsContainer";
 import ProfileContainer from "./containers/profileContainer";
 
 // import secondary components
@@ -48,7 +49,7 @@ class App extends Component {
                   />
                   <ProtectedRoute
                     path="/shoppinglists/:shoppinglistId"
-                    component={DashboardContainer}
+                    component={ItemsContainer}
                   />
                 </Switch>
               </section>

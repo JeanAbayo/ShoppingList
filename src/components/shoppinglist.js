@@ -9,10 +9,11 @@ class Shoppinglist extends Component {
     this.state = {
       items: []
     };
+    this.ensureItemPage = this.ensureItemPage.bind(this);
   }
+
   editShoppinglist = event => {
     event.preventDefault();
-
     const toEdit = {
       title: event.currentTarget.dataset.title,
       description: event.currentTarget.dataset.description,
@@ -20,15 +21,26 @@ class Shoppinglist extends Component {
     };
     this.props.edit(toEdit);
   };
+
   deleteShoppinglist = event => {
     event.preventDefault();
     const toDelete = event.currentTarget.dataset.id;
     this.props.delete(toDelete);
   };
+
   addItem = event => {
     event.preventDefault();
     const item = event.currentTarget.dataset.id;
     this.props.toAddOn(item);
+  };
+
+  ensureItemPage = event => {
+    const itemData = {
+      title: event.currentTarget.dataset.title,
+      description: event.currentTarget.dataset.description,
+      id: event.currentTarget.dataset.id
+    };
+    this.props.itemPage(itemData);
   };
 
   render() {

@@ -9,7 +9,8 @@ import {
   EMPTY_SHOPPINGLIST,
   CREATE_ITEM,
   REQUEST_LOADING,
-  REQUEST_FINISHED
+  REQUEST_FINISHED,
+  CLEAR
 } from "../actions/constants";
 
 export default function ShoppinglistReducer(
@@ -36,7 +37,7 @@ export default function ShoppinglistReducer(
         ...state,
         processing: false,
         processed: true,
-        payload: action.payload
+        shoppinglist: action.payload
       };
 
     case FETCH_MANY_SHOPPINGLISTS:
@@ -77,6 +78,15 @@ export default function ShoppinglistReducer(
         processing: false,
         processed: true,
         payload: action.payload
+      };
+
+    case CLEAR:
+      return {
+        ...state,
+        processing: false,
+        payload: null,
+        processed: false,
+        empty: false
       };
 
     case REQUEST_FINISHED:

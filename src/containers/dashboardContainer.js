@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import Shoppinglist from "../components/shoppinglist";
 import Pagination from "../components/pagination";
 import ShoppinglistContainer from "./shoppinglistContainer";
-import ItemsContainer from "./itemsContainer";
 import SearchContainer from "./searchContainer";
 import SearchResults from "../components/searchResults";
 // Import Error notifier
@@ -26,8 +25,6 @@ import * as Icon from "react-ionicons";
 class DashboardContainer extends Component {
   constructor(props) {
     super(props);
-    this.handleModalShowClick = this.handleModalShowClick.bind(this);
-    this.handleModalCloseClick = this.handleModalCloseClick.bind(this);
     this.state = {
       showModal: false,
       action: null,
@@ -36,19 +33,21 @@ class DashboardContainer extends Component {
       page: 1,
       per_page: 5,
       page_number: null,
-      resultsDisplay: false
+      resultsDisplay: false,
+      search: false,
+      searchData: ""
     };
+    this.handleModalShowClick = this.handleModalShowClick.bind(this);
+    this.handleModalCloseClick = this.handleModalCloseClick.bind(this);
+    this.generateSearch = this.generateSearch.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchShoppinglists(this.state.page, this.state.per_page);
-    this.setState({
-      page_number: this.props.payload.length / this.state.per_page
-    });
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.processed && !this.props.match.params.shoppinglistId) {
+    if (this.props.processed) {
       this.props.fetchShoppinglists(this.state.page, this.state.per_page);
     }
   }
@@ -108,6 +107,20 @@ class DashboardContainer extends Component {
   displaySearchResults = () => {
     this.setState({
       resultsDisplay: true
+    });
+  };
+
+  setPageItem = data => {
+    this.setState({
+      search: false,
+      searchData: data
+    });
+  };
+
+  generateSearch = data => {
+    this.setState({
+      search: true,
+      searchData: data
     });
   };
 
@@ -183,6 +196,7 @@ class DashboardContainer extends Component {
                   <SearchResults
                     display={this.state.resultsDisplay}
                     results={this.state.results}
+                    selectedSearchId={this.generateSearch}
                   />
                   {this.props.empty ? (
                     <div className="list-group">
@@ -191,19 +205,14 @@ class DashboardContainer extends Component {
                       </div>
                     </div>
                   ) : (
-                    <div>
-                      {this.props.match.params.shoppinglistId ? (
-                        <ItemsContainer shoppinglist={itemShoppinglist} />
-                      ) : (
-                        <Shoppinglist
-                          data={this.props.shoppinglists}
-                          delete={this.onDelete}
-                          edit={this.onEdit}
-                          toAddOn={this.addItem}
-                          payload={this.props.payload}
-                        />
-                      )}
-                    </div>
+                    <Shoppinglist
+                      data={this.props.shoppinglists}
+                      delete={this.onDelete}
+                      edit={this.onEdit}
+                      toAddOn={this.addItem}
+                      payload={this.props.payload}
+                      itemPage={this.setPageItem}
+                    />
                   )}
                 </div>
                 <div className="row pagination_container">

@@ -46,8 +46,10 @@ export default {
 				axios.delete(
 					`${base_url}/${url}/${data.shoppinglist.toString()}/items/${data.item.toString()}`
 				),
-			getAllItems: ({ id }) =>
-				axios.get(`${base_url}/${url}/${id.toString()}/items`),
+			getAllItems: ({ id, page, per_page }) =>
+				axios.get(`${base_url}/${url}/${id.toString()}/items`, {
+					params: { page, per_page }
+				}),
 			search: ({ q }) =>
 				axios.get(`${base_url}/${url}`, { params: { q } })
 		};
