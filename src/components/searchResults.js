@@ -36,7 +36,7 @@ class SearchResults extends Component {
 								<Link
 									to={`/shoppinglists/${result.id}`}
 									className="list-group-item list-group-item-action"
-									key={result.id}
+									key={result.title}
 									data-title={result.title}
 									data-description={result.description}
 									data-id={result.id}
