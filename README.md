@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/JeanAbayo/ShoppingList/badge.svg?branch=develop)](https://coveralls.io/github/JeanAbayo/ShoppingList?branch=develop)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
