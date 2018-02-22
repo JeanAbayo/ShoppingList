@@ -1,12 +1,12 @@
 import ProfileReducer from "../profileReducer";
 import * as actions from "../../actions/constants";
 import expect from "expect";
-import Mock from "./mocks";
+import { reducerHelper } from "./reducerHelpers";
 
 describe("Profile reducer", () => {
 	it("should return the initial state", () => {
 		expect(ProfileReducer(undefined, {})).toEqual(
-			Mock.profile().initialState()
+			reducerHelper.profile.initialState
 		);
 	});
 
@@ -24,24 +24,24 @@ describe("Profile reducer", () => {
 	it("should handle FETCH PROFILE", () => {
 		const getProfileAction = {
 			type: actions.GET_PROFILE,
-			payload: Mock.profile().data()
+			payload: reducerHelper.profile.data
 		};
 		expect(ProfileReducer({}, getProfileAction)).toEqual({
 			loaded: true,
 			loading_info: false,
-			user: Mock.profile().data()
+			user: reducerHelper.profile.data
 		});
 	});
 
 	it("should handle UPDATE PROFILE", () => {
 		const updateAction = {
 			type: actions.UPDATE_PROFILE,
-			payload: Mock.profile().data()
+			payload: reducerHelper.profile.data
 		};
 		expect(ProfileReducer({}, updateAction)).toEqual({
 			loaded: true,
 			loading_info: false,
-			user: Mock.profile().data()
+			user: reducerHelper.profile.data
 		});
 	});
 

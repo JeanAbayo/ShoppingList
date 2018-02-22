@@ -1,12 +1,12 @@
 import registerReducer from "../registerReducer";
 import * as actions from "../../actions/constants";
 import expect from "expect";
-import Mock from "./mocks";
+import { reducerHelper } from "./reducerHelpers";
 
 describe("register reducer", () => {
 	it("should return the initial state", () => {
 		expect(registerReducer(undefined, {})).toEqual(
-			Mock.register().initialState()
+			reducerHelper.register.initialState
 		);
 	});
 
@@ -22,11 +22,11 @@ describe("register reducer", () => {
 	it("should handle REGISTRATION SUCCEEDS", () => {
 		const successAction = {
 			type: actions.REGISTER_SUCCEEDS,
-			payload: Mock.register().data()
+			payload: reducerHelper.register.data
 		};
 		expect(registerReducer({}, successAction)).toEqual({
 			error: false,
-			payload: Mock.register().data(),
+			payload: reducerHelper.register.data,
 			registered: true,
 			registering: false
 		});

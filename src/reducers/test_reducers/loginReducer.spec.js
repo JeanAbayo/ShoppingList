@@ -1,12 +1,12 @@
 import LoginReducer from "../loginReducer";
 import * as actions from "../../actions/constants";
 import expect from "expect";
-import Mock from "./mocks";
+import { reducerHelper } from "./reducerHelpers";
 
 describe("login reducer", () => {
 	it("should return the initial state", () => {
 		expect(LoginReducer(undefined, {})).toEqual(
-			Mock.login().initialState()
+			reducerHelper.login.initialState
 		);
 	});
 
@@ -22,14 +22,14 @@ describe("login reducer", () => {
 	it("should handle LOGIN SUCCESSFUL", () => {
 		const successAction = {
 			type: actions.LOGIN_SUCCEEDS,
-			payload: Mock.login().data()
+			payload: reducerHelper.login.data
 		};
 		expect(LoginReducer({}, successAction)).toEqual({
 			logging_in: true,
 			error: false,
 			isAuthenticated: true,
 			logging_in: false,
-			payload: Mock.login().data()
+			payload: reducerHelper.login.data
 		});
 	});
 

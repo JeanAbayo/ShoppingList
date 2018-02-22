@@ -1,7 +1,7 @@
 import SearchReducer from "../searchReducer";
 import * as actions from "../../actions/constants";
 import expect from "expect";
-import Mock from "./mocks";
+import { reducerHelper } from "./reducerHelpers";
 
 describe("Search reducer", () => {
 	it("should return the initial state", () => {
@@ -26,11 +26,11 @@ describe("Search reducer", () => {
 	it("should handle DO_SEARCH", () => {
 		const searchAction = {
 			type: actions.DO_SEARCH,
-			payload: Mock.search().data()
+			payload: reducerHelper.search.data
 		};
 		expect(SearchReducer({}, searchAction)).toEqual({
 			complete: true,
-			results: Mock.search().data(),
+			results: reducerHelper.search.data,
 			searching: false
 		});
 	});

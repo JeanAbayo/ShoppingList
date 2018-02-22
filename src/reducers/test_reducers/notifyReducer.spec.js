@@ -1,7 +1,6 @@
 import NotifyReducer from "../notifyReducer";
 import * as actions from "../../actions/constants";
 import expect from "expect";
-import Mock from "./mocks";
 
 describe("Notify reducer", () => {
 	it("should return the initial state", () => {

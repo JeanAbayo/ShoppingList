@@ -1,12 +1,12 @@
 import ItemsReducer from "../itemsReducer";
 import * as actions from "../../actions/constants";
 import expect from "expect";
-import Mock from "./mocks";
+import { reducerHelper } from "./reducerHelpers";
 
 describe("item reducer", () => {
 	it("should return the initial state", () => {
 		expect(ItemsReducer(undefined, {})).toEqual(
-			Mock.items().initialState()
+			reducerHelper.items.initialState
 		);
 	});
 
@@ -23,24 +23,24 @@ describe("item reducer", () => {
 	it("should handle UPDATE ITEM", () => {
 		const updateAction = {
 			type: actions.UPDATE_ITEM,
-			payload: Mock.items().data()
+			payload: reducerHelper.items.data
 		};
 		expect(ItemsReducer({}, updateAction)).toEqual({
 			loaded: true,
 			loading: false,
-			payload: Mock.items().data()
+			payload: reducerHelper.items.data
 		});
 	});
 
 	it("should handle DELETE ITEM", () => {
 		const deleteAction = {
 			type: actions.DELETE_ITEM,
-			payload: Mock.items().data()
+			payload: reducerHelper.items.data
 		};
 		expect(ItemsReducer({}, deleteAction)).toEqual({
 			loaded: true,
 			loading: false,
-			payload: Mock.items().data()
+			payload: reducerHelper.items.data
 		});
 	});
 

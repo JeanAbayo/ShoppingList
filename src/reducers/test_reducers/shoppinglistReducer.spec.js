@@ -1,12 +1,12 @@
 import ShoppinglistReducer from "../shoppinglistReducer";
 import * as actions from "../../actions/constants";
 import expect from "expect";
-import Mock from "./mocks";
+import { reducerHelper } from "./reducerHelpers";
 
 describe("shoppinglist reducer", () => {
 	it("should return the initial state", () => {
 		expect(ShoppinglistReducer(undefined, {})).toEqual(
-			Mock.shoppinglist().initialState()
+			reducerHelper.shoppinglist.initialState
 		);
 	});
 
@@ -22,36 +22,36 @@ describe("shoppinglist reducer", () => {
 	it("should handle CREATE SHOPPINGLIST", () => {
 		const createAction = {
 			type: actions.CREATE_SHOPPINGLIST,
-			payload: Mock.shoppinglist().data()
+			payload: reducerHelper.shoppinglist.data
 		};
 		expect(ShoppinglistReducer({}, createAction)).toEqual({
 			processed: true,
 			processing: false,
-			payload: Mock.shoppinglist().data()
+			payload: reducerHelper.shoppinglist.data
 		});
 	});
 
 	it("should handle UPDATE SHOPPINGLIST", () => {
 		const updateAction = {
 			type: actions.UPDATE_SHOPPINGLIST,
-			payload: Mock.shoppinglist().data()
+			payload: reducerHelper.shoppinglist.data
 		};
 		expect(ShoppinglistReducer({}, updateAction)).toEqual({
 			processed: true,
 			processing: false,
-			payload: Mock.shoppinglist().data()
+			payload: reducerHelper.shoppinglist.data
 		});
 	});
 
 	it("should handle DELETE SHOPPINGLIST", () => {
 		const deleteAction = {
 			type: actions.DELETE_SHOPPINGLIST,
-			payload: Mock.shoppinglist().data()
+			payload: reducerHelper.shoppinglist.data
 		};
 		expect(ShoppinglistReducer({}, deleteAction)).toEqual({
 			processed: true,
 			processing: false,
-			payload: Mock.shoppinglist().data()
+			payload: reducerHelper.shoppinglist.data
 		});
 	});
 
@@ -71,12 +71,12 @@ describe("shoppinglist reducer", () => {
 	it("should handle FETCH SHOPPINGLIST", () => {
 		const fetchAllAction = {
 			type: actions.FETCH_SHOPPINGLIST,
-			payload: Mock.shoppinglist().data()
+			payload: reducerHelper.shoppinglist.data
 		};
 		expect(ShoppinglistReducer({}, fetchAllAction)).toEqual({
 			processing: false,
 			processed: true,
-			shoppinglist: Mock.shoppinglist().data()
+			shoppinglist: reducerHelper.shoppinglist.data
 		});
 	});
 
@@ -94,12 +94,12 @@ describe("shoppinglist reducer", () => {
 	it("should handle CREATE ITEM", () => {
 		const createItem = {
 			type: actions.CREATE_ITEM,
-			payload: Mock.items().data()
+			payload: reducerHelper.items.data
 		};
 		expect(ShoppinglistReducer({}, createItem)).toEqual({
 			processed: true,
 			processing: false,
-			payload: Mock.items().data()
+			payload: reducerHelper.items.data
 		});
 	});
 
