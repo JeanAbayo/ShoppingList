@@ -11,7 +11,6 @@ import * as Icon from "react-ionicons";
 import { updateItem, deleteItem, fetchAllItems } from "../actions/ItemsActions";
 import { getShoppinglist } from "../actions/ShoppingListsActions";
 import SearchContainer from "./searchContainer";
-import SearchResults from "../components/searchResults";
 
 const customStyles = {
   content: {
