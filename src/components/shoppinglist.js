@@ -44,6 +44,7 @@ class Shoppinglist extends Component {
   };
 
   render() {
+    if (this.props.data.length === 0) return <p>No shoppinglists found</p>;
     const content = this.props.data[0].shoppinglists;
     return (
       <div>

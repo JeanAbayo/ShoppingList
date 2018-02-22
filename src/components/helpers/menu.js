@@ -39,11 +39,6 @@ class Menu extends Component {
               Signup
             </Link>
           </li>
-          <li className="nav-item active">
-            <Link className="nav-link" to="/explore">
-              Explore
-            </Link>
-          </li>
         </ul>
       );
     }

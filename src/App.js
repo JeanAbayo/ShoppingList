@@ -9,7 +9,6 @@ import configureStore from "./instance/configureStore";
 import { PersistGate } from "redux-persist/lib/integration/react";
 
 // Import primary components
-import Explore from "./components/explore";
 import Home from "./components/home";
 import Login from "./components/login";
 import DashboardContainer from "./containers/dashboardContainer";
@@ -36,7 +35,6 @@ class App extends Component {
                 <Navbar />
                 <Switch>
                   <Route exact path="/" component={Home} />
-                  <Route exact path="/explore" component={Explore} />
                   <Route path="/signup" component={Home} />
                   <Route path="/login" component={Login} />
                   <ProtectedRoute

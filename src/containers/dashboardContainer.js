@@ -133,97 +133,99 @@ class DashboardContainer extends Component {
   };
 
   render() {
-    if (this.props.shoppinglists.length > 0) {
-      const itemShoppinglist = this.props.shoppinglists[0].shoppinglists.filter(
-        shoppinglist =>
-          shoppinglist["id"] === this.props.match.params.shoppinglistId * 1
-      );
-      const { showModal } = this.state;
-      return (
-        <div className="container-fluid">
-          {this.props.processing ? <Loader /> : null}
-          {this.props.notify.type ? (
-            <Notifier message={this.props.notify} />
-          ) : null}
-          <div className="row">
-            <div className="col col-12 align-self-center">
-              <div className="card sl_display_card">
-                <div className="row">
-                  <div className="col-8">
-                    <h2 className="card-header">Your Shopping Lists</h2>
-                  </div>
-                  <div className="col-4">
-                    <SearchContainer
-                      shoppinglist={itemShoppinglist}
-                      data={this.searchResults}
-                      triggerSearch={this.displaySearchResults}
-                      hideSearch={this.hideResultsDisplay}
-                    />
-                    <Icon
-                      icon="ios-create-outline"
-                      fontSize="43px"
-                      color="#fff"
-                      className="create_sl"
-                      onClick={this.onCreate}
-                    />
-                    <Icon
-                      icon="ios-search-outline"
-                      fontSize="43px"
-                      color="#fff"
-                      className="search_icon"
-                    />
-                  </div>
-                  <div className="container">
-                    <div className="row">
-                      {showModal ? (
-                        <ShoppinglistContainer
-                          handleModalCloseClick={this.handleModalCloseClick}
-                          history={this.props.history}
-                          action={this.state.action}
-                          editData={this.state.toEdit}
-                          toCreate={this.state.toCreate}
-                        />
-                      ) : null}
-                    </div>
-                  </div>
+    const { showModal } = this.state;
+    let itemShoppinglist = [];
+    return (
+      <div className="container-fluid">
+        {this.props.processing ? <Loader /> : null}
+        {this.props.notify.type ? (
+          <Notifier message={this.props.notify} />
+        ) : null}
+        <div className="row">
+          <div className="col col-12 align-self-center">
+            <div className="card sl_display_card">
+              <div className="row">
+                <div className="col-8">
+                  <h2 className="card-header">Your Shopping Lists</h2>
                 </div>
-                <div className="card-block">
-                  <SearchResults
-                    display={this.state.resultsDisplay}
-                    results={this.state.results}
-                    selectedSearchId={this.generateSearch}
+                {this.props.shoppinglists.length > 0
+                  ? (itemShoppinglist = this.props.shoppinglists[0].shoppinglists.filter(
+                      shoppinglist =>
+                        shoppinglist["id"] ===
+                        this.props.match.params.shoppinglistId * 1
+                    ))
+                  : (itemShoppinglist = [])}
+                <div className="col-4">
+                  <SearchContainer
+                    shoppinglist={itemShoppinglist}
+                    data={this.searchResults}
+                    triggerSearch={this.displaySearchResults}
+                    hideSearch={this.hideResultsDisplay}
                   />
-                  {this.props.empty ? (
-                    <div className="list-group">
-                      <div className="d-flex w-100 justify-content-between">
-                        <h4>{this.props.payload.message}</h4>
-                      </div>
-                    </div>
-                  ) : (
-                    <Shoppinglist
-                      data={this.props.shoppinglists}
-                      delete={this.onDelete}
-                      edit={this.onEdit}
-                      toAddOn={this.addItem}
-                      payload={this.props.payload}
-                      itemPage={this.setPageItem}
-                    />
-                  )}
+                  <Icon
+                    icon="ios-create-outline"
+                    fontSize="43px"
+                    color="#fff"
+                    className="create_sl"
+                    onClick={this.onCreate}
+                  />
+                  <Icon
+                    icon="ios-search-outline"
+                    fontSize="43px"
+                    color="#fff"
+                    className="search_icon"
+                  />
                 </div>
-                <div className="row pagination_container">
+                <div className="container">
+                  <div className="row">
+                    {showModal ? (
+                      <ShoppinglistContainer
+                        handleModalCloseClick={this.handleModalCloseClick}
+                        history={this.props.history}
+                        action={this.state.action}
+                        editData={this.state.toEdit}
+                        toCreate={this.state.toCreate}
+                      />
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+              <div className="card-block">
+                <SearchResults
+                  display={this.state.resultsDisplay}
+                  results={this.state.results}
+                  selectedSearchId={this.generateSearch}
+                />
+                {this.props.empty ? (
+                  <div className="list-group">
+                    <div className="d-flex w-100 justify-content-between">
+                      <h4>{this.props.payload.message}</h4>
+                    </div>
+                  </div>
+                ) : (
+                  <Shoppinglist
+                    data={this.props.shoppinglists}
+                    delete={this.onDelete}
+                    edit={this.onEdit}
+                    toAddOn={this.addItem}
+                    payload={this.props.payload}
+                    itemPage={this.setPageItem}
+                  />
+                )}
+              </div>
+              <div className="row pagination_container">
+                {this.props.shoppinglists.length > 0 ? (
                   <Pagination
                     paginate={this.props.shoppinglists[1].pagination}
                     onPageChange={this.changePage}
                   />
-                </div>
+                ) : null}
               </div>
             </div>
           </div>
         </div>
-      );
-    } else {
-      return <Loader />;
-    }
+      </div>
+    );
   }
 }
 
