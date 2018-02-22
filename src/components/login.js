@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
+// import container
+import LoginContainer from "../containers/loginContainer";
 // import components
-import SignupContainer from "../containers/signupContainer";
 import HomeSidebar from "./helpers/homeSidebar";
 
-class Home extends Component {
+class Login extends Component {
   render() {
     return (
       <div className="container-fluid sl_hero_content">
@@ -16,10 +17,10 @@ class Home extends Component {
               <div className="panel-heading">
                 <strong className="">Create a ShoppingList account</strong>
               </div>
-              <SignupContainer history={this.props.history} />
+              <LoginContainer history={this.props.history} />
               <div className="panel-footer">
                 Alredy have an account?{" "}
-                <Link to="/login" className="">
+                <Link to="/signup" className="">
                   Signin here
                 </Link>
               </div>
@@ -31,4 +32,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Login);
