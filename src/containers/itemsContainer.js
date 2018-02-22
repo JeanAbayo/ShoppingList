@@ -35,6 +35,8 @@ class ItemsContainer extends Component {
       page: 1,
       per_page: 5,
       page_number: null,
+      nowPage: null,
+      results: [],
       itemData: {
         item_title: "",
         item_description: ""
@@ -108,6 +110,33 @@ class ItemsContainer extends Component {
       }
     });
     this.openModal();
+  };
+
+  displaySearchResults = () => {
+    this.setState({
+      nowPage: true
+    });
+  };
+
+  generateSearch = data => {
+    this.setState({
+      search: true,
+      searchData: data
+    });
+  };
+
+  hideResultsDisplay = () => {
+    setTimeout(() => {
+      this.setState({
+        nowPage: null
+      });
+    }, 1000);
+  };
+
+  searchResults = results => {
+    this.setState({
+      results
+    });
   };
 
   render() {
@@ -216,7 +245,7 @@ class ItemsContainer extends Component {
                   <SearchContainer
                     items={this.props.items}
                     page={this.id}
-                    data={this.searchResults}
+                    itemData={this.searchResults}
                     triggerSearch={this.displaySearchResults}
                     hideSearch={this.hideResultsDisplay}
                   />
@@ -237,6 +266,8 @@ class ItemsContainer extends Component {
                   </div>
                 ) : (
                   <Items
+                    page={this.state.nowPage}
+                    results={this.state.results}
                     data={this.props.items}
                     edit={this.onEdit}
                     delete={this.onDelete}

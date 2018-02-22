@@ -51,7 +51,11 @@ export default {
 					params: { page, per_page }
 				}),
 			search: ({ q }) =>
-				axios.get(`${base_url}/${url}`, { params: { q } })
+				axios.get(`${base_url}/${url}`, { params: { q } }),
+			searchItems: ({ q, id }) =>
+				axios.get(`${base_url}/${url}/${id.toString()}`, {
+					params: { q }
+				})
 		};
 	},
 	profile(url) {

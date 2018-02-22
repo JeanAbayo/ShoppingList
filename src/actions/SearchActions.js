@@ -32,3 +32,20 @@ export function search(q, type) {
 			});
 	};
 }
+
+export function searchItem(q, id) {
+	return dispatch => {
+		dispatch(searching());
+		Api.shoppinglists("search")
+			.searchItems({ q, id })
+			.then(response => {
+				return dispatch(do_search(response.data));
+			})
+			.catch(error => {
+				if (error.response) {
+					dispatch(danger(error.response.data));
+					return dispatch(clear());
+				}
+			});
+	};
+}

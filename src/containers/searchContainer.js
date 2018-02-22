@@ -2,14 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Search from "../components/search";
 
-import { search } from "../actions/SearchActions";
+import { search, searchItem } from "../actions/SearchActions";
 
 class SearchContainer extends Component {
   doSearch = q => {
     if (q.length > 0) {
-      this.props.search(q);
+      this.props.page
+        ? this.props.searchItem(q, this.props.page * 1)
+        : this.props.search(q);
     }
-    this.props.data(this.props.results);
+    this.props.page
+      ? this.props.itemData(this.props.results)
+      : this.props.data(this.props.results);
   };
 
   render() {
@@ -34,4 +38,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { search })(SearchContainer);
+export default connect(mapStateToProps, { search, searchItem })(
+  SearchContainer
+);
