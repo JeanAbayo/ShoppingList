@@ -101,7 +101,7 @@ export function fetchShoppinglists(page, per_page) {
 export function getShoppinglist(id) {
 	return dispatch => {
 		dispatch(request_loading("GET_ONE"));
-		Api.shoppinglists("shoppinglists")
+		return Api.shoppinglists("shoppinglists")
 			.getOne({ id })
 			.then(response => {
 				dispatch(fetch_shoppinglist(response.data));
@@ -120,7 +120,7 @@ export function getShoppinglist(id) {
 export function createShoppinglist(shoppinglist) {
 	return dispatch => {
 		dispatch(request_loading("CREATE"));
-		Api.shoppinglists("shoppinglists")
+		return Api.shoppinglists("shoppinglists")
 			.create(shoppinglist)
 			.then(response => {
 				dispatch(create_shoppinglist(response.data));
@@ -141,7 +141,7 @@ export function createShoppinglist(shoppinglist) {
 export function updateShoppinglist(shoppinglist) {
 	return dispatch => {
 		dispatch(request_loading("EDIT"));
-		Api.shoppinglists("shoppinglists")
+		return Api.shoppinglists("shoppinglists")
 			.update({ shoppinglist })
 			.then(response => {
 				dispatch(update_shoppinglist(response.data));
@@ -162,7 +162,7 @@ export function updateShoppinglist(shoppinglist) {
 export function deleteShoppinglist(id) {
 	return dispatch => {
 		dispatch(request_loading("DELETE"));
-		Api.shoppinglists("shoppinglists")
+		return Api.shoppinglists("shoppinglists")
 			.delete({ id })
 			.then(response => {
 				dispatch(delete_shoppinglist(response.data));
@@ -182,8 +182,8 @@ export function deleteShoppinglist(id) {
 
 export function addItem(item) {
 	return dispatch => {
-		dispatch(request_loading("DELETE"));
-		Api.shoppinglists("shoppinglists")
+		dispatch(request_loading("ADD ITEM"));
+		return Api.shoppinglists("shoppinglists")
 			.createItem({ item })
 			.then(response => {
 				dispatch(create_item(response.data));

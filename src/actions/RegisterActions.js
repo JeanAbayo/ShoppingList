@@ -43,7 +43,7 @@ export function registerDone(data) {
 export function register(newUser) {
 	return dispatch => {
 		dispatch(registering());
-		axios
+		return axios
 			.post(url + "/auth/register", newUser)
 			.then(response => {
 				dispatch(registerSucceeds(response.data));

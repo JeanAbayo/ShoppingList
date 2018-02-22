@@ -54,7 +54,7 @@ export const empty_shoppinglist = payload => {
 export function deleteItem(data) {
 	return dispatch => {
 		dispatch(request_loading("DELETE"));
-		Api.shoppinglists("shoppinglists")
+		return Api.shoppinglists("shoppinglists")
 			.deleteItem({ data })
 			.then(response => {
 				dispatch(delete_item(response.data));
@@ -74,8 +74,8 @@ export function deleteItem(data) {
 
 export function updateItem(item) {
 	return dispatch => {
-		dispatch(request_loading("DELETE"));
-		Api.shoppinglists("shoppinglists")
+		dispatch(request_loading("UPDATE"));
+		return Api.shoppinglists("shoppinglists")
 			.updateItem({ item })
 			.then(response => {
 				dispatch(update_item(response.data));
@@ -96,7 +96,7 @@ export function updateItem(item) {
 export function fetchAllItems(id, page, per_page) {
 	return dispatch => {
 		dispatch(request_loading("GET_ALL_ITEMS"));
-		Api.shoppinglists("shoppinglists")
+		return Api.shoppinglists("shoppinglists")
 			.getAllItems({ id, page, per_page })
 			.then(response => {
 				dispatch(get_all_items(response.data));

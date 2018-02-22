@@ -91,14 +91,6 @@ describe("shoppinglist action creators", () => {
 	});
 
 	it("should fetch shoppinglists successfuly", () => {
-		moxios.wait(() => {
-			const request = moxios.requests.mostRecent();
-			request.respondWith({
-				status: 200,
-				response: actionHelper.shoppinglist
-			});
-		});
-
 		const expectedActions = [
 			{ type: types.REQUEST_LOADING, action: "FETCH" }
 		];
@@ -106,6 +98,73 @@ describe("shoppinglist action creators", () => {
 		const store = mockStore({ shoppinglists: {} });
 
 		return store.dispatch(actions.fetchShoppinglists(1, 5)).then(() => {
+			// return of async actions
+			expect(store.getActions()).toEqual(expectedActions);
+		});
+	});
+
+	it("should fetch create a shoppinglist", () => {
+		const expectedActions = [{ action: "CREATE", type: "REQUEST_LOADING" }];
+
+		const store = mockStore({ shoppinglists: {} });
+
+		return store
+			.dispatch(actions.createShoppinglist(actionHelper.shoppinglist))
+			.then(() => {
+				// return of async actions
+				expect(store.getActions()).toEqual(expectedActions);
+			});
+	});
+
+	it("should fetch fetch one shoppinglist", () => {
+		const expectedActions = [
+			{ action: "GET_ONE", type: "REQUEST_LOADING" }
+		];
+
+		const store = mockStore({ shoppinglists: {} });
+
+		return store
+			.dispatch(actions.getShoppinglist(actionHelper.shoppinglist))
+			.then(() => {
+				// return of async actions
+				expect(store.getActions()).toEqual(expectedActions);
+			});
+	});
+
+	it("should fetch update a shoppinglist", () => {
+		const expectedActions = [{ action: "EDIT", type: "REQUEST_LOADING" }];
+
+		const store = mockStore({ shoppinglists: {} });
+		const shoppinglist = { id: 1, data: actionHelper.shoppinglist };
+
+		return store
+			.dispatch(actions.updateShoppinglist(shoppinglist))
+			.then(() => {
+				// return of async actions
+				expect(store.getActions()).toEqual(expectedActions);
+			});
+	});
+
+	it("should fetch delete a shoppinglist", () => {
+		const expectedActions = [{ action: "DELETE", type: "REQUEST_LOADING" }];
+
+		const store = mockStore({ shoppinglists: {} });
+
+		return store.dispatch(actions.deleteShoppinglist(1)).then(() => {
+			// return of async actions
+			expect(store.getActions()).toEqual(expectedActions);
+		});
+	});
+
+	it("should fetch add an item to shoppinglist", () => {
+		const expectedActions = [
+			{ action: "ADD ITEM", type: "REQUEST_LOADING" }
+		];
+
+		const store = mockStore({ shoppinglists: {} });
+		const item = { id: 1, data: actionHelper.item };
+
+		return store.dispatch(actions.addItem(item)).then(() => {
 			// return of async actions
 			expect(store.getActions()).toEqual(expectedActions);
 		});

@@ -37,7 +37,7 @@ export const loading_finished = () => {
 export function getUserProfile() {
 	return dispatch => {
 		dispatch(load_profile());
-		Api.profile("user")
+		return Api.profile("user")
 			.getProfile()
 			.then(response => {
 				return dispatch(get_profile(response.data));
@@ -54,7 +54,7 @@ export function getUserProfile() {
 export function updateUserProfile(data) {
 	return dispatch => {
 		dispatch(load_profile());
-		Api.profile("user")
+		return Api.profile("user")
 			.updateProfile({ data })
 			.then(response => {
 				dispatch(update_profile(response.data));

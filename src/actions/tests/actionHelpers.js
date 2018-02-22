@@ -16,9 +16,14 @@ export const actionHelper = {
 		title: "Vegetables",
 		description: "Cassava"
 	},
+	token: "token",
 	item: {
 		item_title: "Tomato",
 		item_description: "Red ones"
+	},
+	user: {
+		username: "John Doe",
+		email: "johndoe@test.com"
 	},
 	search: {
 		searching: false,

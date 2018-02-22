@@ -19,7 +19,7 @@ export const do_search = payload => {
 export function search(q, type) {
 	return dispatch => {
 		dispatch(searching());
-		Api.shoppinglists("search")
+		return Api.shoppinglists("search")
 			.search({ q })
 			.then(response => {
 				return dispatch(do_search(response.data));
@@ -36,7 +36,7 @@ export function search(q, type) {
 export function searchItem(q, id) {
 	return dispatch => {
 		dispatch(searching());
-		Api.shoppinglists("search")
+		return Api.shoppinglists("search")
 			.searchItems({ q, id })
 			.then(response => {
 				return dispatch(do_search(response.data));

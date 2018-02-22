@@ -57,7 +57,7 @@ export function login(userData) {
 
 export const logout = () => {
 	return dispatch => {
-		Api.logout("auth/logout")
+		return Api.logout("auth/logout")
 			.Logout()
 			.then(response => {
 				localStorage.removeItem("token");

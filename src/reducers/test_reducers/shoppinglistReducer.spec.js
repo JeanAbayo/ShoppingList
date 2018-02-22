@@ -76,7 +76,7 @@ describe("shoppinglist reducer", () => {
 		expect(ShoppinglistReducer({}, fetchAllAction)).toEqual({
 			processing: false,
 			processed: true,
-			payload: Mock.shoppinglist().data()
+			shoppinglist: Mock.shoppinglist().data()
 		});
 	});
 
