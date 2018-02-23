@@ -1,1 +1,1 @@
-export const url = "http://myshoppinglistapi.herokuapp.com/api/v1";
+export const url = "https://myshoppinglistapi.herokuapp.com/api/v1";
